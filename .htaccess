@@ -1,0 +1,30 @@
+<IfModule mod_rewrite.c>
+#RewriteEngine On
+#!IMPORTANT! Set your RewriteBase here and don't forget trailing and leading
+#slashes.
+#If your page resides at
+#http://www.example.com/mypage/test1
+#hen use
+#RewriteBase /Tecnicart/
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteRule ^(.*)$ index.php?/$1 [L]
+</IfModule>
+
+
+#*** Casa Samuel ****
+#RewriteEngine On
+#RewriteBase /Tecnicart/
+#RewriteCond %{REQUEST_URI} ^system.*
+#RewriteRule ^(.*)$ /index.php/$1 [L]
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^(.*)$ /CrSite/index.php/$1 [L,QSA]
+#*** Casa Samuel ****
+
+RewriteEngine On
+RewriteBase /CrSite  
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond $1 !^(index\.php|images|robots\.txt|css|docs|js|system)
+RewriteRule ^(.*)$ /CrSite/index.php?/$1 [L]
