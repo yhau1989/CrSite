@@ -36,7 +36,7 @@ class Tmp extends CI_Controller {
 	{
 		//$this->Usuarios_model->confirmar_registro($idUser, $passw);
 		$data['msg'] = (isset($idUser) && isset($passw)) ? $this->Usuarios_model->confirmar_registro($idUser, $passw): '' ;
-		$data['titulo'] = '<h1>Confirmación de registro</h1>';
+		$data['titulo'] = (strlen($data['msg']) > 0) ? '<h1>Confirmación de registro</h1>' : '';
 		$this->load->view('tmp',$data);
 		//$this->load->view('welcome_message');
 		
