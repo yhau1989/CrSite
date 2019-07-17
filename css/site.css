@@ -1,0 +1,39 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.seccionSlider {
+    /*background-color: black;*/
+    background: #d8ff7e;
+    background: -moz-linear-gradient(to right, #d8ff7e 0%, #97e7a2 100%);
+    background: -webkit-linear-gradient(to right, #d8ff7e 0%, #97e7a2 100%);
+    background: linear-gradient(to right, #d8ff7e 0%, #97e7a2 100%);
+    color: black;
+}
+
+.ui.text.container.samo {
+    margin-top: 4em;
+    margin-bottom: 2em;
+    padding-bottom: 3em;
+    font-size: 4em;
+    /*font-weight: normal;*/
+    text-align: center;
+}
+
+.ui.text.container.samo>h1 {
+    font-size: 1em;
+}
+
+.ui.large.secondary.pointing.menu.hidden {
+    border-bottom: none !important;
+}
+
+.separ {
+    margin-bottom: 4em;
+}
+
+.ui.text.container.login {
+    width: 320px;
+    padding-top: 25px;
+    margin-top: 2em;
+}
