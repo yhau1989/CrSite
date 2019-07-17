@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     <div class="field">
                         <div style="text-align: center">
-                            <img class="ui image" src="images/resdec.jpg" alt="">
+                            <img class="ui small centered image" src="<?php echo strtolower(base_url()); ?>/assets/images/cropped-IMG-20181016-WA0435-2.jpg" alt="">
                             <h3>Ingeso</h3>
                             <span id="error_login"></span>
                         </div>
