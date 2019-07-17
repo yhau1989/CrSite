@@ -20,7 +20,8 @@ class html
                 <body>';
         echo $top;
     }
-    public function headForms($scripts)
+    
+    /*public function headForms($scripts)
     {
         $addScripts = '';
         if(isset($scripts) && count($scripts) > 0)
@@ -54,28 +55,33 @@ class html
                 </head>
                 <body>';
         echo $top;
-    }
-    public function menuSuperiorForm()
+    }*/
+
+
+    public function menuDashboard()
     {
         $baseurl = strtolower(base_url());
-        $menu = '<div class="menublack">
-                    <div class="ui inverted menu" style="padding: 5px;">
-                        <div class="right menu">
-                            <div class="item">
-                                <div class="ui transparent inverted action input">
-                                    <input type="text" placeholder="Buscar....">
-                                    <button class="ui black icon button">
-                                        <i class="search icon"></i>
-                                    </button>
-                                </div>
+        $menu = '<div class="ui fixed inverted menu">
+                    <div class="ui container">
+                        <a href="' . $baseurl . 'dashboard" class="header item">
+                            <img class="logo" src="' . $baseurl . '/assets/images/cropped-IMG-20181016-WA0435-2.jpg">
+                            <span>&nbsp; Administrador Procefibras App</span>
+                        </a>
+                        <a href="#" class="item">Salir</a>
+                        <div class="ui simple dropdown item">
+                            Opciones <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <a class="item" href="#">Tipo de materiales</a>
+                                <a class="item" href="#">Stocks</a>
+                                <a class="item" href="#">Usuarios</a>
                             </div>
-                            <a class="item" href="'.$baseurl. 'dashboard">Inicío <i class="ui sign-in icon"></i></a>
                         </div>
                     </div>
                 </div>';
         echo $menu;
     }
-    public function menuSuperior($name_user = null, $user_guid = null)
+
+    /*public function menuSuperior($name_user = null, $user_guid = null)
     {
         $user = (isset($name_user)) ? $name_user : '';
         $guid = (isset($user_guid)) ? $user_guid : '';
@@ -164,6 +170,7 @@ class html
     </div>';
     echo $menu;
     }
+    */
 
     
     public function footer()
