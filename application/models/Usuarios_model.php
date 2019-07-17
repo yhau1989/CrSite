@@ -75,6 +75,8 @@ class Usuarios_model extends CI_Model {
         }
     }
 
+
+
     public function loginAdmin($email, $psw)
     {
         $this->db->select('email');
@@ -109,90 +111,24 @@ class Usuarios_model extends CI_Model {
 
 
     
-    /**
-     * register function
-     *
-     * @param [type] $email
-     * @param [type] $psw
-     * @param [type] $nombres
-     * @param [type] $apellidos
-     * @param [type] $cedula
-     * @param [type] $telefono
-     * @param [type] $celular
-     * @param [type] $direccion
-     * @return void
-     */
-    public function register($email, $psw, $nombres, $apellidos, $cedula, $telefono, $celular, $direccion)
+   
+    public function confirmar_registro($userId, $pwsd)
     {
-
-        try {
-            $aes_pws = new AES($psw, AES_KEY, AES_BLOC_SIZE);
-            $aes_guid = new AES($email, AES_KEY, AES_BLOC_SIZE);
-            
-
-            $data = array(
-                'guid' => $aes_guid->encrypt(),
-                'email' => strtolower($email),
-                'nombres' => $nombres,
-                'apellidos' => $apellidos,
-                'cedula' => $cedula,
-                //'telefono' => $telefono,
-                //'celular' => $celular,
-                //'direccion' => $direccion,
-                'passw' => $aes_pws->encrypt(),
-                'estado' => 2
-            );
-
-            if($this->db->insert($this->table_name, $data))
-            {
-                return array(
-                    'status' => 0,
-                    'data' => 'ok',
-                    'hash_url' => hash(SALT_HASH_LONG, $email . SALT_HASH),
-                    'id_user' => $this->db->insert_id()
-                );
-            }
-            else
-            {
-                return array(
-                    'status' => 1,
-                    'data' => $this->db->error()['message']
-                );
-            }
-        
-        } catch (Exception $e) {
-            return array(
-                'status' => 1,
-                'data' => 'Caught exception: ', $e->getMessage()
-            );
-        }
-        
-    }
-
-
-    public function confirmar_registro($userId, $hash)
-    {
-        $query = $this->db->get_where($this->table_name, array('id' => $userId, 'estado' => 2), 1);
+        $query = $this->db->get_where($this->table_name, array('id' => $userId, 'password' => $pwsd, 'admin' => 0, 'estado' => 3), 1);
         $row = $query->row();
 
         if (isset($row)) 
         {
-            if(hash(SALT_HASH_LONG, $row->email . SALT_HASH) === $hash)
+            $this->db->where('id', $userId);
+            if($this->db->update($this->table_name, array('estado' => 1)))
             {
-                $this->db->where('id', $userId);
-                if($this->db->update($this->table_name, array('estado' => 1)))
-                {
-                    return 'Has confirmado exitosamente tu cuenta de correo,  <a href="'.strtolower(base_url()).'" class="active link item">iniciar sesión <i class="angle right icon"></i>';
-                }
-                else
-                {
-                    return $this->db->error()['message'];
-                }
-            }   
+                //return 'Has confirmado exitosamente tu cuenta de correo,  <a href="'.strtolower(base_url()).'" class="active link item">iniciar sesión <i class="angle right icon"></i>';
+                return 'Has confirmado exitosamente tu cuenta de correo';
+            }
             else
             {
-                return 'argumenos invalidos';
-            } 
+                return $this->db->error()['message'];
+            }
         }
         else
         {
