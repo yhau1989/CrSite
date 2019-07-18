@@ -32,6 +32,7 @@ class Tmp extends CI_Controller {
 		$this->load->view('tmp');
 	}
 
+	/*Confirmacion de correo (Suscripcion)*/
 	public function confirmacion($idUser = null, $passw = null)
 	{
 		//$this->Usuarios_model->confirmar_registro($idUser, $passw);
@@ -41,5 +42,36 @@ class Tmp extends CI_Controller {
 		//$this->load->view('welcome_message');
 		
 	}
+
+	/*Cambio de contraseña del usuario*/
+	public function rst($token = null)
+	{
+		$data = array('email' => '', 'mensaje' => '');
+		
+		if(isset($token))
+		{	
+
+			$datosToken = $this->Usuarios_model->validateTokenPassword($token);
+			if($datosToken['error'] == 1)
+			{
+				$data['mensaje'] = $datosToken['data'];
+			}
+			else
+			{
+				$data['email'] = $datosToken['email'];
+				
+			}
+			
+			$this->load->view('reset_password',$data);
+		}
+		else
+		{
+			$this->load->view('reset_password',$data);
+		}	
+	}
+
+
+
+
 
 }

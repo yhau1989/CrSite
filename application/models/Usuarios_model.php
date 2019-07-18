@@ -136,4 +136,13 @@ class Usuarios_model extends CI_Model {
         }        
     }
 
+
+    public function validateTokenPassword($token)
+    {
+        $query = $this->db->get_where('tokenpassword', array('token' => $token, 'estado' => 0), 1);
+        $row = $query->row();
+        $rest = (isset($row)) ? array('error' => 0 , 'email' => $row->email) : array('error' => '1', 'data' => 'Parametros incorrectos');
+        return $rest;      
+    }
+
 }

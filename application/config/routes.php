@@ -58,3 +58,5 @@ $route['tmp/confirmacion/:any'] = "tmp";
 $route['tmp/confirmacion/:num/:num'] = "tmp";
 $route['tmp/confirmacion/:any/:any/(.+)'] = "tmp";
 
+
+$route['tmp/rst/:any/(.+)'] = "tmp";
