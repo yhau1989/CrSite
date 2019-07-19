@@ -41,14 +41,26 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <div class="ui field">
                         <div style="text-align: center">
                             <button id="btn" class="secondary ui button" type="submit">Cambiar</button>
-                            <div class="ui divider"></div>
-                            <div style="padding-top: 40px; font-size: 12px;">
-                                Copyright 2019 - All rights reserved
-                            </div>
                         </div>
                     </div>
                 </form>
             </div>
+
+
+           <script>
+            var password = document.getElementById("psswd"), confirm_password = document.getElementById("psswd2");
+
+                function validatePassword(){
+                if(password.value != confirm_password.value) {
+                    confirm_password.setCustomValidity("Las contraseñas no coinciden");
+                } else {
+                    confirm_password.setCustomValidity('');
+                }
+                }
+
+                password.onchange = validatePassword;
+                confirm_password.onkeyup = validatePassword;
+           </script>
 
         <?php } else {?>
 

@@ -52,9 +52,8 @@ class Ingreso extends CI_Controller {
 				$this->load->view('login', $data);
 			}
 		}
-
-
-
-
 	}
+
+
+	
 }

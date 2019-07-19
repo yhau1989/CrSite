@@ -145,4 +145,25 @@ class Usuarios_model extends CI_Model {
         return $rest;      
     }
 
+
+
+    public function resetPassword($email, $password)
+    {
+        $this->db->where('email', $email);
+        if($this->db->update($this->table_name, array('password' => md5($password))))
+        {
+            date_default_timezone_set(TIME_ZONE_APP);
+		    $fecha_uso = date('Y-m-d H:i:s');
+            $this->db->where('email', $email);
+            $this->db->update('tokenpassword', array('estado' => 1, 'fechauso' => $fecha_uso));
+            
+            return 'Se ha reestablecido su contraseña con éxito.';
+        }
+        else
+        {
+            return $this->db->error()['message'];
+        }
+    }
+
+
 }
