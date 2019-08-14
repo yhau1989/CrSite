@@ -15,8 +15,67 @@ defined('BASEPATH') or exit('No direct script access allowed');
         <h1 class="ui header">Reporte Ventas</h1>
 
 
-        <table class="ui celled table">
+        <form class="ui form" id="reporteVentasForm" method="post" accept-charset="utf-8">
+            <div class="two fields">
+                <div class="field">
+                    <label>Usuario vendedor</label>
+                        <?php if($usuarios['status'] != 0)   {  echo $usuarios['data']; ?>
+                        <?php } else{?>
 
+                        <div class="ui fluid search selection dropdown">
+                            <input type="hidden" name="vendedor">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Seleccionar usuario</div>
+                            <div class="menu">
+                                <?php foreach ($usuarios['data'] as $clave => $valor) { ?>
+                                        <div class="item" data-value="<?php echo $valor['id'];?>">
+                                            <?php echo $valor['usuario'];?>
+                                        </div>
+                                <?php } ?> 
+                            </div>
+                        </div>
+                    <?php } ?> 
+                </div>
+                <div class="field">
+                    <label>Cliente</label>
+                        <?php if($clientes['status'] != 0)   {  echo $clientes['data']; ?>
+                        <?php } else{?>
+
+                        <div class="ui fluid search selection dropdown">
+                            <input type="hidden" name="cliente">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Seleccionar cliente</div>
+                            <div class="menu">
+                                <?php foreach ($clientes['data'] as $clave => $valor) { ?>
+                                        <div class="item" data-value="<?php echo $valor['id'];?>">
+                                            <?php echo $valor['cliente'];?>
+                                        </div>
+                                <?php } ?> 
+                            </div>
+                        </div>
+                    <?php } ?> 
+                </div>
+            </div>
+            <div class="fields">
+                <div class="three wide field">
+                    <label>Fecha desde</label>
+                    <input id="fdesde" name="fdesde" type="date" onchange="validaFechas()" onkeyup="validaFechas()">
+                </div>
+                <div class="three wide field">
+                    <label>Fecha hasta</label>
+                    <input id="fhasta" name="fhasta" type="date" onchange="validaFechas()" onkeyup="validaFechas()">
+                </div>
+            </div>
+            
+           
+            <button class="secondary ui button" id="bt_consultar" name="bt_consultar" type="submit">Filtrar</button>
+            <div class="secondary ui button" id="bt_clear" name="bt_clear">Borrar Filtros</div>
+        </form>
+
+
+        <div class="separ"></div>
+        <h3 class="ui dividing header"></h3>
+        <table class="ui celled table">
         <?php  if($ventas['status'] != 0)   {  echo $ventas['data']; ?>
             <?php } else{?>
                 <thead>
@@ -83,6 +142,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 </div>
 
+
+<script>
+
+        $(function() {
+            
+            $('.ui.dropdown')
+            .dropdown();
+
+            $('#bt_clear').on('click', function() {
+                $('.ui.dropdown').dropdown('clear');
+                $('#reporteVentasForm')[0].reset();
+            });
+
+
+          });
+
+          
+
+        </script>
 
 
 <?php $this->html->footer(); ?>

@@ -16,6 +16,8 @@ class Dashboard extends CI_Controller {
 			$this->load->model('Lotes_model');
 			$this->load->model('Proveedor_model');
 			$this->load->model('Usuarios_model');
+			$this->load->model('Cliente_model');
+			
 			
 		}
 	}
@@ -57,11 +59,26 @@ class Dashboard extends CI_Controller {
 
 	public function reporteventas()
 	{
-		//$this->load->view('welcome_message');
-		$data['ventas'] = $this->Ventas_model->getAllVentas();
+		if ($this->input->post()) 
+		{
+			//$this->load->view('welcome_message');
+			$data['ventas'] = $this->Ventas_model->filtrarVentas($_POST);
+			$data['clientes'] = $this->Cliente_model->getAllClientes();
+			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+			//var_dump($data['lotes']);
+			$this->load->view('dashventas', $data);
+		}
+		else
+		{
+			//$this->load->view('welcome_message');
+			$data['ventas'] = $this->Ventas_model->getAllVentas();
+			$data['clientes'] = $this->Cliente_model->getAllClientes();
+			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+			//var_dump($data['lotes']);
+			$this->load->view('dashventas', $data);
+		}
+
 		
-		//var_dump($data['lotes']);
-		$this->load->view('dashventas', $data);
 	}
 
 	public function reportecompras()

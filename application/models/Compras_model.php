@@ -80,10 +80,10 @@ class Compras_model extends CI_Model {
             {$this->db->where('proveedor',$datos['proveedor']);}
 
             if(strlen($datos['fdesde']) > 0) 
-            {$this->db->where('fecha_compra >',$datos['fdesde']);}
+            {$this->db->where('fecha_compra >= ', $datos['fdesde'] . ' 00:00');}
 
             if(strlen($datos['fhasta']) > 0) 
-            {$this->db->where('fecha_compra <',$datos['fhasta']);}
+            {$this->db->where('fecha_compra <=',$datos['fhasta'] . ' 23:59');}
             
             $data = $this->db->get(); 
            
