@@ -42,7 +42,7 @@ class Lotes_model extends CI_Model {
             }
             else if($this->db->error()['code'] == 0 && $data->result_id->num_rows == 0)
             {
-                return $this->setErrorMesaage($this->db->error()['code'], 'No existen ventas');
+                return $this->setErrorMesaage(1, 'No existen lotes');
             }
             else
             {

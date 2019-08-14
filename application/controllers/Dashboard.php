@@ -14,6 +14,8 @@ class Dashboard extends CI_Controller {
 			$this->load->model('Compras_model');
 			$this->load->model('Ventas_model');
 			$this->load->model('Lotes_model');
+			$this->load->model('Proveedor_model');
+			$this->load->model('Usuarios_model');
 			
 		}
 	}
@@ -50,5 +52,38 @@ class Dashboard extends CI_Controller {
 	{
 		$this->session->unset_userdata('userlogin');
 		header('Location: ' .  strtolower(base_url()) . 'ingreso');
+	}
+
+
+	public function reporteventas()
+	{
+		//$this->load->view('welcome_message');
+		$data['ventas'] = $this->Ventas_model->getAllVentas();
+		
+		//var_dump($data['lotes']);
+		$this->load->view('dashventas', $data);
+	}
+
+	public function reportecompras()
+	{
+		if ($this->input->post()) 
+		{
+			//var_dump($_POST);
+			//$this->load->view('welcome_message');
+			$data['compras'] = $this->Compras_model->filtrarCompras($_POST);
+			$data['proveedores'] = $this->Proveedor_model->getAllProveedores();
+			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+			//var_dump($data['compras']);
+			$this->load->view('dashcompras', $data);
+		}
+		else
+		{
+			//$this->load->view('welcome_message');
+			$data['compras'] = $this->Compras_model->getAllCompras();
+			$data['proveedores'] = $this->Proveedor_model->getAllProveedores();
+			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+			$this->load->view('dashcompras', $data);
+		}
+
 	}
 }
