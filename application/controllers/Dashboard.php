@@ -10,6 +10,12 @@ class Dashboard extends CI_Controller {
 		if (!isset($this->session->userlogin)) {
 			header('Location: ' .  strtolower(base_url()) . 'ingreso');
 		}
+		else {
+			$this->load->model('Compras_model');
+			$this->load->model('Ventas_model');
+			$this->load->model('Lotes_model');
+			
+		}
 	}
 
 
@@ -31,7 +37,12 @@ class Dashboard extends CI_Controller {
 	public function index()
 	{
 		//$this->load->view('welcome_message');
-		$this->load->view('dash');
+		$data['compras'] = $this->Compras_model->getAllCompras();
+		$data['ventas'] = $this->Ventas_model->getAllVentas();
+		$data['lotes'] = $this->Lotes_model->getAllLotes();
+		//var_dump($data['lotes']);
+		$this->load->view('dash', $data);
+		
 	}
 
 
