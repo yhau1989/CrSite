@@ -17,8 +17,7 @@ class Dashboard extends CI_Controller {
 			$this->load->model('Proveedor_model');
 			$this->load->model('Usuarios_model');
 			$this->load->model('Cliente_model');
-			
-			
+			$this->load->model('Material_model');
 		}
 	}
 
@@ -101,6 +100,15 @@ class Dashboard extends CI_Controller {
 			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
 			$this->load->view('dashcompras', $data);
 		}
+	}
 
+	public function reportelotes()
+	{
+		
+		$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+		$data['lotes'] = $this->Lotes_model->getAllLotes();
+		$data['materiales'] = $this->Material_model->getAllMateriales();
+		
+		$this->load->view('dashlotes', $data);
 	}
 }
