@@ -15,6 +15,7 @@ class Usuarios_model extends CI_Model {
         $this->db->select('id,guid,email,nombres,apellidos,cedula');
         $this->db->from($this->table_name);
         $this->db->where('estado', 1); //solo activos
+        $this->db->where('admin', 0); //admin no
         return $this->db->get();
     }
 
@@ -26,6 +27,7 @@ class Usuarios_model extends CI_Model {
             $this->db->select("id, CONCAT(nombres,' ',apellidos)  AS usuario");
             $this->db->from($this->table_name);
             $this->db->where('estado', 1); //solo activos
+            $this->db->where('admin', 0); //admin no
             $data = $this->db->get();
 
             if($this->db->error()['code'] == 0 && $data->result_id->num_rows > 0)

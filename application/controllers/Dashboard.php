@@ -104,11 +104,24 @@ class Dashboard extends CI_Controller {
 
 	public function reportelotes()
 	{
+		if ($this->input->post()) {
+			//var_dump($_POST);
+
+			
+			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+			$data['lotes'] = $this->Lotes_model->filtrarLotes($_POST);
+			$data['materiales'] = $this->Material_model->getAllMateriales();
+
+			$this->load->view('dashlotes', $data);
+			
+		} else{
+
+			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+			$data['lotes'] = $this->Lotes_model->getAllLotes();
+			$data['materiales'] = $this->Material_model->getAllMateriales();
+			
+			$this->load->view('dashlotes', $data);
+		}
 		
-		$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
-		$data['lotes'] = $this->Lotes_model->getAllLotes();
-		$data['materiales'] = $this->Material_model->getAllMateriales();
-		
-		$this->load->view('dashlotes', $data);
 	}
 }
