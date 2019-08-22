@@ -124,4 +124,24 @@ class Dashboard extends CI_Controller {
 		}
 		
 	}
+
+
+	public function detalleventa($idVenta)
+	{
+		//$ft = $this->Ventas_model->getVenta($idVenta);
+		//var_dump($ft['data']['cabecera'][0]['cliente']);
+		//var_dump($ft['data']);
+		
+		$data['id_venta'] = $idVenta;
+		$data['venta'] = $this->Ventas_model->getVenta($idVenta);
+		$data['clientes'] = $this->Cliente_model->getAllClientes();
+		$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+		$this->load->view('dashventadetalle', $data);
+		
+		
+		
+		
+	}
+
+
 }

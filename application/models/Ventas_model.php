@@ -40,6 +40,123 @@ class Ventas_model extends CI_Model {
     }
 
 
+    public function getVenta($idVenta)
+    {
+        try {
+
+            $this->db->select("ventas.id, CONCAT(cliente.nombres,' ',cliente.apellidos)  AS cliente, ventas.valor_total, 
+            ventas.fecha_venta, CONCAT(usuario.nombres,' ',usuario.apellidos) AS vendedor");
+            $this->db->from('ventas');
+            $this->db->join('cliente', 'cliente.id = ventas.cliente','inner');
+            $this->db->join('usuario', 'usuario.id = ventas.usuario_vendedor','inner');
+            $this->db->where('ventas.id', $idVenta);
+            $data = $this->db->get(); 
+
+            if($this->db->error()['code'] == 0 && $data->result_id->num_rows > 0)
+            {
+                $cabecera = array('status' => 0,'data' =>  $data->result_array());
+                
+                //get Items
+                $items = $this->getDetalleVentaItems($idVenta);
+                if($items['status'] == 0)
+                {
+                    $subtotales = $this->getDetalleVentaSubtotales($idVenta);
+                    if($subtotales['status'] == 0)
+                    {
+                        return array(
+                            'status' => 0,
+                            'data' => array(
+                                'cabecera' => $cabecera['data'],
+                                'items' => $items['data'],
+                                'totales' =>  $subtotales['data']
+                            )                          
+                        );
+                    }
+                    else
+                    {
+                        return $subtotales;
+                    }
+                }
+                else
+                {
+                    return $items;
+                }
+            }
+            else if($this->db->error()['code'] == 0 && $data->result_id->num_rows == 0)
+            {
+                return $this->setErrorMesaage(1, 'No existen venta');
+            }
+            else
+            {
+                return $this->setErrorMesaage($this->db->error()['code'], $this->db->error()["message"]);
+            }
+
+        } catch (Exception $th) {
+            return $this->setErrorMesaage(99, $th);
+        }
+    }
+
+
+
+    public function getDetalleVentaItems($idVenta)
+    {
+        $this->db->select("descripcion, peso, valor, iva, valor_total");
+        $this->db->from('ventadetalle');
+        $this->db->where('id_venta', $idVenta);
+        $data = $this->db->get(); 
+
+        try 
+        {
+            if($this->db->error()['code'] == 0 && $data->result_id->num_rows > 0)
+            {
+               return array('status' => 0,'data' =>  $data->result_array());
+            }
+            else if($this->db->error()['code'] == 0 && $data->result_id->num_rows == 0)
+            {
+                return $this->setErrorMesaage(1, 'No existen items para esta venta');
+            }
+            else
+            {
+                return $this->setErrorMesaage($this->db->error()['code'], $this->db->error()["message"]);
+            }
+            
+        } catch (Exception $th) {
+            return $this->setErrorMesaage(99, $th);
+        }
+    }
+
+    public function getDetalleVentaSubtotales($idVenta)
+    {
+        $this->db->select("SUM(valor) as SubTotal, (SUM(valor) * 0.12) as IVA");
+        $this->db->from('ventadetalle');
+        $this->db->where('id_venta', $idVenta);
+        $data = $this->db->get(); 
+
+        try 
+        {
+            if($this->db->error()['code'] == 0 && $data->result_id->num_rows > 0)
+            {
+               return array('status' => 0,'data' =>  $data->result_array());
+            }
+            else if($this->db->error()['code'] == 0 && $data->result_id->num_rows == 0)
+            {
+                return $this->setErrorMesaage(1, 'error al generar el calculo');
+            }
+            else
+            {
+                return $this->setErrorMesaage($this->db->error()['code'], $this->db->error()["message"]);
+            }
+            
+        } catch (Exception $th) {
+            return $this->setErrorMesaage(99, $th);
+        }
+    }
+
+
+
+
+
+
     private function setErrorMesaage($codeError, $errorMsg)
     {
         return array(
