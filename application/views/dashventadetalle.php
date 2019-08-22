@@ -48,13 +48,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <div class="content">
                         <div class="right aligned">
                         <h4>IVA</h4>
-                        <p>$ <?php echo $venta['data']['totales'][0]['IVA']; ?></p>
+                        <p>$ <?php echo number_format((float)($venta['data']['totales'][0]['IVA']), 2, '.', '') ; ?></p>
                         </div>
                     </div>
                     <div class="content">
                         <div class="right aligned">
                         <h4>Total Neto</h4>
-                        <p><?php echo $venta['data']['cabecera'][0]['valor_total']; ?></p>
+                        <p>$ <?php echo $venta['data']['cabecera'][0]['valor_total']; ?></p>
                         </div>
                     </div>
                 </div>
