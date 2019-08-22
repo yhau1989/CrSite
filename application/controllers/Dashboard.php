@@ -18,6 +18,8 @@ class Dashboard extends CI_Controller {
 			$this->load->model('Usuarios_model');
 			$this->load->model('Cliente_model');
 			$this->load->model('Material_model');
+			$this->load->model('Stock_model');
+			
 		}
 	}
 
@@ -40,6 +42,7 @@ class Dashboard extends CI_Controller {
 	public function index()
 	{
 		//$this->load->view('welcome_message');
+		$data['stock'] = $this->Stock_model->getStocks();
 		$data['compras'] = $this->Compras_model->getAllCompras();
 		$data['ventas'] = $this->Ventas_model->getAllVentas();
 		$data['lotes'] = $this->Lotes_model->getAllLotes();

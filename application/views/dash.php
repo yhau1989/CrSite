@@ -9,11 +9,51 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <?php $this->html->menuDashboard(); ?>
 
-    <div class="ui main container dash">
+
+    <div class="dash" style="padding-left:60px;padding-right:60px;">
+    <div class="separ"></div>
+    
+    <h1 class="ui header">
         <div class="separ"></div>
-        <h1 class="ui header">Administrador Procefibras App</h1>
+        Administrador Procefibras App
+    </h1>
+    
+    <div class="ui two column doubling grid">
+    
+    <div class="three wide column">
+    
+        <div class="separ"></div>
+        <h3 class="ui dividing header">
+            Stocks
+        </h3>
+        <div >
+                            
+            <?php if($stock['status'] != 0) { echo $stock['data']; ?>
+            <?php } else {?>
+
+                <div class="ui fluid card">
+                    <?php foreach ($stock['data'] as $clave => $valor) { ?>
+                   
+                        <div class="content">
+                            
+                            
+                                <h4 class="ui header"><?php echo $valor['tipo'];?></h4>
+                                <?php echo $valor['stock'];?> lb
+                            
+                        </div>
+                    
+                    <?php } ?> 
+                </div>
+            <?php } ?>
+
+        </div>
+    </div>
 
 
+    <div class="thirteen wide column">
+    
+    <div class="dash">
+        <div class="separ"></div>
         <h3 class="ui dividing header">
             Compras
         </h3>
@@ -151,6 +191,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
         <div class="separ"></div>
     </div>
+    
+    
+    </div>
+    
+    </div>
+    
+    
+    </div>
+
+
+    
+
+    
 
 
 
