@@ -52,7 +52,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <div class="thirteen wide column">
     
-    <div class="dash">
+    <div>
         <div class="separ"></div>
         <h3 class="ui dividing header">
             Compras
