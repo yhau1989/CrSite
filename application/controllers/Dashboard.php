@@ -129,11 +129,18 @@ class Dashboard extends CI_Controller {
 	}
 
 
-	public function detalleventa($idVenta)
+	public function detalleventa($idVenta=null)
 	{
-		//$ft = $this->Ventas_model->getVenta($idVenta);
-		//var_dump($ft['data']['cabecera'][0]['cliente']);
-		//var_dump($ft['data']);
+
+		try {
+			if (!isset($idVenta) || $idVenta <= 0) {
+				header('Location: ' .  strtolower(base_url()) . 'dashboard/reporteventas');
+			}
+		} catch (Exception $th) {
+			header('Location: ' .  strtolower(base_url()) . 'dashboard/reporteventas');
+		}
+
+		
 		
 		$data['id_venta'] = $idVenta;
 		$data['venta'] = $this->Ventas_model->getVenta($idVenta);
