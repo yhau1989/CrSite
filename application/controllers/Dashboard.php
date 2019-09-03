@@ -19,7 +19,7 @@ class Dashboard extends CI_Controller {
 			$this->load->model('Cliente_model');
 			$this->load->model('Material_model');
 			$this->load->model('Stock_model');
-			
+			$this->load->model('Odt_model');
 		}
 	}
 
@@ -45,7 +45,7 @@ class Dashboard extends CI_Controller {
 		$data['stock'] = $this->Stock_model->getStocks();
 		$data['compras'] = $this->Compras_model->getAllCompras();
 		$data['ventas'] = $this->Ventas_model->getAllVentas();
-		$data['lotes'] = $this->Lotes_model->getAllLotes();
+		$data['odt'] = $this->Odt_model->getAllODT();
 		//var_dump($data['lotes']);
 		$this->load->view('dash', $data);
 		
@@ -124,6 +124,25 @@ class Dashboard extends CI_Controller {
 			$data['materiales'] = $this->Material_model->getAllMateriales();
 			
 			$this->load->view('dashlotes', $data);
+		}
+		
+	}
+
+	public function reporteodt()
+	{
+		if ($this->input->post()) {
+			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+			$data['odt'] = $this->Odt_model->filtrarODT($_POST);
+			$data['materiales'] = $this->Material_model->getAllMateriales();
+			$this->load->view('dashodt', $data);
+			
+		} else{
+
+			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+			$data['odt'] = $this->Odt_model->getAllODT();
+			$data['materiales'] = $this->Material_model->getAllMateriales();
+			
+			$this->load->view('dashodt', $data);
 		}
 		
 	}

@@ -121,40 +121,34 @@ defined('BASEPATH') or exit('No direct script access allowed');
         </table>
 
         <h3 class="ui dividing header">
-            Lotes
+            ODT
         </h3>
 
         <div style="overflow-x: scroll">
 
         
         <table class="ui celled table" style="overflow-x: scroll">
-        <?php  if($lotes['status'] != 0)   {  echo $lotes['data']; ?>
+        <?php  if($odt['status'] != 0)   {  echo $odt['data']; ?>
             <?php } else{?>
                 <thead>
                     <tr>
-                        <th>Lote</th>
-                        <th>Compra</th>
+                        <th>Código ODT</th>
+                        <th>Material</th>
                         <th>Proceso Selecciona</th>
                         <th>Proceso Tritura</th>
                         <th>Proceso Almacena</th>
-                        <th>Proceso Material</th>
                         <th>Peso</th>
+                        <th>Faltante</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($lotes['data'] as $clave => $valor) { ?>
+                    <?php foreach ($odt['data'] as $clave => $valor) { ?>
                         <tr>
-                            <td data-label="id"><?php echo $valor['lote']; ?></td>
+                            <td data-label="id"><?php echo $valor['orden_id']; ?></td>
+                            <td data-label="material"><?php echo $valor['material'];?></td>
                             <td>
                                 <div class="meta">
-                                    <span class="cinema" data-field="usuario_compra"><b>Comprador</b>: <?php echo $valor['usuario_compra'];?></span><br>
-                                    <span class="cinema" data-field="fecha_ini_compra"><b>Inicio</b>: <?php echo $valor['fecha_ini_compra'];?></span><br>
-                                    <span class="cinema" data-field="fecha_fin_compra"><b>Fin</b>: <?php echo $valor['fecha_fin_compra'];?></span><br>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="meta">
-                                    <span class="cinema" data-field="proceso_selecciona"><b>Status</b>: <?php echo ($valor['proceso_selecciona'] == 1) ? 'Completo' : 'Pendiente' ;?></span><br>
+                                    <span class="cinema" data-field="proceso_procesar"><b>Status</b>: Completo</span><br>
                                     <span class="cinema" data-field="usuario_selecciona"><b>Seleccionador</b>: <?php echo $valor['usuario_selecciona'];?></span><br>
                                     <span class="cinema" data-field="fecha_ini_selecciona"><b>Inicio</b>: <?php echo $valor['fecha_ini_selecciona'];?></span><br>
                                     <span class="cinema" data-field="fecha_fin_selecciona"><b>Fin</b>: <?php echo $valor['fecha_fin_selecciona'];?></span><br>
@@ -163,24 +157,26 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                             <td>
                                 <div class="meta">
-                                    <span class="cinema" data-field="proceso_procesar"><b>Status</b>: <?php echo ($valor['proceso_procesar'] == 1) ? 'Completo' : 'Pendiente';?></span><br>
+                                    <span class="cinema" data-field="proceso_procesar"><b>Status</b>: <?php echo ($valor['proceso_trituracion'] == 1) ? 'Completo' : 'Pendiente';?></span><br>
                                     <span class="cinema" data-field="usuario_tritura"><b>Triturador</b>: <?php echo $valor['usuario_tritura'];?></span><br>
-                                    <span class="cinema" data-field="fecha_ini_procesa"><b>Inicio</b>: <?php echo $valor['fecha_ini_procesa'];?></span><br>
-                                    <span class="cinema" data-field="fecha_fin_procesa"><b>Fin</b>: <?php echo $valor['fecha_fin_procesa'];?></span><br>
+                                    <span class="cinema" data-field="fecha_ini_procesa"><b>Inicio</b>: <?php echo $valor['fecha_ini_tritura'];?></span><br>
+                                    <span class="cinema" data-field="fecha_fin_procesa"><b>Fin</b>: <?php echo $valor['fecha_fin_tritura'];?></span><br>
                                 </div>
                             </td>
 
                             <td>
                                 <div class="meta">
-                                    <span class="cinema" data-field="proceso_almacenar"><b>Status</b>: <?php echo ($valor['proceso_almacenar'] == 1) ? 'Completo' : 'Pendiente';?></span><br>
+                                    <span class="cinema" data-field="proceso_almacenar"><b>Status</b>: <?php echo ($valor['proceso_almacena'] == 1) ? 'Completo' : 'Pendiente';?></span><br>
                                     <span class="cinema" data-field="usuario_almacena"><b>Almacenador</b>: <?php echo $valor['usuario_almacena'];?></span><br>
                                     <span class="cinema" data-field="fecha_ini_almacena"><b>Inicio</b>: <?php echo $valor['fecha_ini_almacena'];?></span><br>
                                     <span class="cinema" data-field="fecha_fin_almacena"><b>Fin</b>: <?php echo $valor['fecha_fin_almacena'];?></span><br>
                                 </div>
                             </td>
                             
-                            <td data-label="material"><?php echo $valor['material'];?></td>
-                            <td data-label="peso"><?php echo $valor['peso'] . ' lb';?></td>
+                            
+                            <td data-label="peso"><?php echo $valor['peso_total'] . ' lb';?></td>
+                            <td data-label="faltante"><?php echo $valor['faltante'] . ' lb';?></td>
+
                         </tr>
                     <?php } ?> 
                 </tbody>

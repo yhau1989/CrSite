@@ -37,7 +37,7 @@ class Html
                             <div class="menu">
                                 <a class="item" href="' . $baseurl . 'dashboard/reportecompras">Reporte Compras</a>
                                 <a class="item" href="' . $baseurl . 'dashboard/reporteventas">Reporte Ventas</a>
-                                <a class="item" href="' . $baseurl . 'dashboard/reportelotes">Reporte Lotes</a>
+                                <a class="item" href="' . $baseurl . 'dashboard/reporteodt">Reporte ODT</a>
                             </div>
                         </div>
                     </div>
