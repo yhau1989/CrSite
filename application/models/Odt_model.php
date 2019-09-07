@@ -10,7 +10,7 @@ class Odt_model extends CI_Model {
             $this->table_name = 'ordentrabajo';
     }
 
-    public function getAllODT()
+    public function getAllODT($solodDelDia = null)
     {
         try {
 
@@ -29,6 +29,13 @@ class Odt_model extends CI_Model {
             $this->db->join('usuario AS usertritura', 'usertritura.id = ordentrabajo.usuario_tritura', 'left');
             $this->db->join('usuario AS usersave', 'usersave.id = ordentrabajo.usuario_almacena', 'left');
             $this->db->join('tipomateriales', 'tipomateriales.id = ordentrabajo.tipo_material', 'inner');
+
+            if (isset($solodDelDia)) {
+                $fecha = new DateTime();
+                $this->db->where('fecha_ini_selecciona >= ', $fecha->format('Y-m-d 00:00'));
+            }
+
+
 
             $data = $this->db->get(); 
 

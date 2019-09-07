@@ -10,7 +10,7 @@ class Ventas_model extends CI_Model {
             $this->table_name = 'ventas';
     }
 
-    public function getAllVentas()
+    public function getAllVentas($solodDelDia = null)
     {
         try {
 
@@ -19,6 +19,12 @@ class Ventas_model extends CI_Model {
             $this->db->from('ventas');
             $this->db->join('cliente', 'cliente.id = ventas.cliente','inner');
             $this->db->join('usuario', 'usuario.id = ventas.usuario_vendedor','inner');
+
+            if (isset($solodDelDia)) {
+                $fecha = new DateTime();
+                $this->db->where('fecha_venta >= ', $fecha->format('Y-m-d 00:00'));
+            }
+
             $data = $this->db->get(); 
 
             if($this->db->error()['code'] == 0 && $data->result_id->num_rows > 0)

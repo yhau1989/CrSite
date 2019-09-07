@@ -1,4 +1,3 @@
-
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 ?>
@@ -19,8 +18,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <div class="two fields">
                 <div class="field">
                     <label>Usuario vendedor</label>
-                        <?php if($usuarios['status'] != 0)   {  echo $usuarios['data']; ?>
-                        <?php } else{?>
+                    <?php if ($usuarios['status'] != 0) {
+                        echo $usuarios['data']; ?>
+                    <?php } else { ?>
 
                         <div class="ui fluid search selection dropdown">
                             <input type="hidden" name="vendedor">
@@ -28,18 +28,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <div class="default text">Seleccionar usuario</div>
                             <div class="menu">
                                 <?php foreach ($usuarios['data'] as $clave => $valor) { ?>
-                                        <div class="item" data-value="<?php echo $valor['id'];?>">
-                                            <?php echo $valor['usuario'];?>
-                                        </div>
-                                <?php } ?> 
+                                    <div class="item" data-value="<?php echo $valor['id']; ?>">
+                                        <?php echo $valor['usuario']; ?>
+                                    </div>
+                                <?php } ?>
                             </div>
                         </div>
-                    <?php } ?> 
+                    <?php } ?>
                 </div>
                 <div class="field">
                     <label>Cliente</label>
-                        <?php if($clientes['status'] != 0)   {  echo $clientes['data']; ?>
-                        <?php } else{?>
+                    <?php if ($clientes['status'] != 0) {
+                        echo $clientes['data']; ?>
+                    <?php } else { ?>
 
                         <div class="ui fluid search selection dropdown">
                             <input type="hidden" name="cliente">
@@ -47,13 +48,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <div class="default text">Seleccionar cliente</div>
                             <div class="menu">
                                 <?php foreach ($clientes['data'] as $clave => $valor) { ?>
-                                        <div class="item" data-value="<?php echo $valor['id'];?>">
-                                            <?php echo $valor['cliente'];?>
-                                        </div>
-                                <?php } ?> 
+                                    <div class="item" data-value="<?php echo $valor['id']; ?>">
+                                        <?php echo $valor['cliente']; ?>
+                                    </div>
+                                <?php } ?>
                             </div>
                         </div>
-                    <?php } ?> 
+                    <?php } ?>
                 </div>
             </div>
             <div class="fields">
@@ -66,8 +67,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <input id="fhasta" name="fhasta" type="date" onchange="validaFechas()" onkeyup="validaFechas()">
                 </div>
             </div>
-            
-           
+
+
             <button class="secondary ui button" id="bt_consultar" name="bt_consultar" type="submit">Filtrar</button>
             <div class="secondary ui button" id="bt_clear" name="bt_clear">Borrar Filtros</div>
         </form>
@@ -76,8 +77,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
         <div class="separ"></div>
         <h3 class="ui dividing header"></h3>
         <table class="ui celled table">
-        <?php  if($ventas['status'] != 0)   {  echo $ventas['data']; ?>
-            <?php } else{?>
+            <?php if ($ventas['status'] != 0) {
+                echo $ventas['data']; ?>
+            <?php } else { ?>
                 <thead>
                     <tr>
                         <th>Id venta</th>
@@ -91,20 +93,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <?php foreach ($ventas['data'] as $clave => $valor) { ?>
                         <tr>
                             <td data-label="id">
-                                <a href="<?php echo strtolower(base_url()) . 'dashboard/detalleventa/' . $valor['id'];?>"><?php echo str_pad($valor['id'], 10, "0", STR_PAD_LEFT); ?></a>
+                                <a href="<?php echo strtolower(base_url()) . 'dashboard/detalleventa/' . $valor['id']; ?>"><?php echo str_pad($valor['id'], 10, "0", STR_PAD_LEFT); ?></a>
                             </td>
-                            <td data-label="cliente"><?php echo $valor['cliente'];?></td>
-                            <td data-label="valor_total"><?php echo '$ ' . $valor['valor_total'];?></td>
-                            <td data-label="vendedor"><?php echo $valor['vendedor'];?></td>
-                            <td data-label="fecha_venta"><?php echo $valor['fecha_venta'];?></td>
+                            <td data-label="cliente"><?php echo $valor['cliente']; ?></td>
+                            <td data-label="valor_total"><?php echo '$ ' . $valor['valor_total']; ?></td>
+                            <td data-label="vendedor"><?php echo $valor['vendedor']; ?></td>
+                            <td data-label="fecha_venta"><?php echo $valor['fecha_venta']; ?></td>
                         </tr>
-                    <?php } ?> 
+                    <?php } ?>
                 </tbody>
-            <?php }?>
+            <?php } ?>
         </table>
-        
+
         <div class="separ"></div>
     </div>
+
 
 
 
@@ -112,32 +115,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <div class="ui inverted vertical footer segment">
         <div class="separ"></div>
         <div class="ui container">
-      <div class="ui stackable inverted divided equal height stackable grid">
-        <div class="three wide column">
-          <h4 class="ui inverted header">Frameworks Usados</h4>
-          <div class="ui inverted link list">
-            <a href="https://facebook.github.io/react-native/" class="item" target="_blank" rel="noopener noreferrer">React Native</a>
-            <a href="https://medoo.in/" class="item" target="_blank" rel="noopener noreferrer">Medoo</a>
-            <a href="https://www.codeigniter.com/" class="item" target="_blank" rel="noopener noreferrer">Codeigniter</a>
-            <a href="https://semantic-ui.com/" class="item" target="_blank" rel="noopener noreferrer">Semantic UI</a>
-            <a href="https://expo.io/" class="item" target="_blank" rel="noopener noreferrer">Expo</a>
-          </div>
+            <div class="ui stackable inverted divided equal height stackable grid">
+                <div class=" column">
+                    <h4 class="ui inverted header">Gracias</h4>
+                    <p>Gracias a nuestros profesores por incentivar la investigación y el desarrollo</p>
+                </div>
+            </div>
         </div>
-        <div class="three wide column">
-          <h4 class="ui inverted header">Tecnologias Usadas</h4>
-          <div class="ui inverted link list">
-            <a href="https://www.mysql.com/" target="_blank" rel="noopener noreferrer" class="item">MySql</a>
-            <a href="https://php.net/" target="_blank" rel="noopener noreferrer" class="item">PHP</a>
-            <a href="https://developer.mozilla.org/es/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer" class="item">JavaScript</a>
-            <a href="https://cloud.google.com/" target="_blank" rel="noopener noreferrer" class="item">Google Cloud</a>
-          </div>
-        </div>
-        <div class="seven wide column">
-          <h4 class="ui inverted header">Gracias</h4>
-          <p>Gracias a nuestros profesores por incentivar la investigación y el desarrollo</p>
-        </div>
-      </div>
-    </div>
         <div class="separ"></div>
     </div>
 
@@ -146,23 +130,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
 <script>
+    $(function() {
 
-        $(function() {
-            
-            $('.ui.dropdown')
+        $('.ui.dropdown')
             .dropdown();
 
-            $('#bt_clear').on('click', function() {
-                $('.ui.dropdown').dropdown('clear');
-                $('#reporteVentasForm')[0].reset();
-            });
+        $('#bt_clear').on('click', function() {
+            $('.ui.dropdown').dropdown('clear');
+            $('#reporteVentasForm')[0].reset();
+        });
 
 
-          });
-
-          
-
-        </script>
+    });
+</script>
 
 
 <?php $this->html->footer(); ?>

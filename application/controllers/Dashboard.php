@@ -43,12 +43,11 @@ class Dashboard extends CI_Controller {
 	{
 		//$this->load->view('welcome_message');
 		$data['stock'] = $this->Stock_model->getStocks();
-		$data['compras'] = $this->Compras_model->getAllCompras();
-		$data['ventas'] = $this->Ventas_model->getAllVentas();
-		$data['odt'] = $this->Odt_model->getAllODT();
+		$data['compras'] = $this->Compras_model->getAllCompras(1);
+		$data['ventas'] = $this->Ventas_model->getAllVentas(1);
+		$data['odt'] = $this->Odt_model->getAllODT(1);
 		//var_dump($data['lotes']);
 		$this->load->view('dash', $data);
-		
 	}
 
 
@@ -86,18 +85,15 @@ class Dashboard extends CI_Controller {
 	public function reportecompras()
 	{
 		if ($this->input->post()) 
-		{
-			//var_dump($_POST);
-			//$this->load->view('welcome_message');
+		{			
 			$data['compras'] = $this->Compras_model->filtrarCompras($_POST);
 			$data['proveedores'] = $this->Proveedor_model->getAllProveedores();
 			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
-			//var_dump($data['compras']);
 			$this->load->view('dashcompras', $data);
+			
 		}
 		else
 		{
-			//$this->load->view('welcome_message');
 			$data['compras'] = $this->Compras_model->getAllCompras();
 			$data['proveedores'] = $this->Proveedor_model->getAllProveedores();
 			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();

@@ -21,7 +21,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
       <div class="ui text container samo">
         <h1>Procefibras App</h1>
         <h2>App para la gestion de residuos de INNOMINE S.A.</h2>
-        <a href="https://drive.google.com/open?id=1gUW3BVp-emTrnXC4UQyn50q4txpUrGJP" download class="ui huge secondary button">Descardar App <i class="right arrow icon"></i></a>
+        <a href="https://drive.google.com/open?id=1gUW3BVp-emTrnXC4UQyn50q4txpUrGJP" download class="ui huge secondary button">Descargar App <i class="right arrow icon"></i></a>
       </div>
     </div>
   </div>
@@ -33,18 +33,22 @@ defined('BASEPATH') or exit('No direct script access allowed');
           <h3 class="ui header">Soluciones para reciclaje</h3>
           <p>Empresa Ecuatoriana con experiencia en el mercado de procesamiento de Fibra, la operación en Innomine S.A – Procefibras, se basa en el respeto del tiempo de nuestros proveedores y clientes.</p>
           <h3 class="ui header">Compra de materiales</h3>
-          <p>En toda la provincia del Guayas, compramos cualquier tipo de material reciclable. 
-             <br><strong>Horario de atención:</strong> Lunes a Viernes de 8:00hrs a 18:00hrs, Sábados de 08:00 a 12:30
+          <p>En toda la provincia del Guayas, compramos cualquier tipo de material reciclable.
+            <br><strong>Horario de atención:</strong> Lunes a Viernes de 8:00hrs a 18:00hrs, Sábados de 08:00 a 12:30
           </p>
         </div>
         <div class="six wide right floated column">
           <img src="https://procefibras.com/wp-content/uploads/2019/05/cropped-IMG-20181016-WA0435-2.jpg" class="ui large bordered rounded image">
+          <div style="text-align: center;padding-top: 15;">
+            <a href="https://procefibras.com" target="_blank" rel="noopener noreferrer" class="ui huge button">Visitar sitio de la empresa</a>
+          </div>
+
+
         </div>
+
       </div>
       <div class="row">
-        <div class="center aligned column">
-          <a href="https://procefibras.com" target="_blank" rel="noopener noreferrer" class="ui huge button">Visitar sitio de la empresa</a>
-        </div>
+
       </div>
     </div>
     <div class="separ"></div>
@@ -107,17 +111,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <div class="ui text container">
       <h3 class="ui header">Open source</h3>
       <p>La aplicación mobil de Profecibras, esta constriuda 100% con tecnologías Open Source, usa lenguajes de programación como PHP, JavaScript y usa una base de datos
-      MySQL</p>
+        MySQL</p>
       <h4 class="ui horizontal header divider">
         <a href="#">Plataforma Tecnológica</a>
       </h4>
       <h3 class="ui header">Arquitectura de la Plataforma para el App</h3>
       <p>
-        Para que el app funcione de manera optima y esté operativa 24/7 creo una arquitectura basada en 
-        <a href="https://es.wikipedia.org/wiki/Software_como_servicio" target="_blank" rel="noopener noreferrer">Sass</a> cuenta con un Api restfull 
-        (Servicio web) que permite la interacción con la base de datos, el App mobil se conecta a este servicio web el mismo que esta alojado en  
-        <a href=" https://cloud.google.com/" target="_blank" rel="noopener noreferrer">Google Cloud</a> el sitio que estamos viendo y la Bade de datos estan alojados en 
-        un Goole Cloud.       
+        Para que el app funcione de manera optima y esté operativa 24/7 creo una arquitectura basada en
+        <a href="https://es.wikipedia.org/wiki/Software_como_servicio" target="_blank" rel="noopener noreferrer">Sass</a> cuenta con un Api restfull
+        (Servicio web) que permite la interacción con la base de datos, el App mobil se conecta a este servicio web el mismo que esta alojado en
+        <a href=" https://cloud.google.com/" target="_blank" rel="noopener noreferrer">Google Cloud</a> el sitio que estamos viendo y la Bade de datos estan alojados en
+        un Goole Cloud.
       </p>
     </div>
     <div class="separ"></div>

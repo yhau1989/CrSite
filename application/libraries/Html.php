@@ -31,15 +31,15 @@ class Html
                             <img class="logo" src="' . $baseurl . 'assets/images/cropped-IMG-20181016-WA0435-2.jpg">
                             <span>&nbsp; Administrador Procefibras App</span>
                         </a>
-                        <a href="' . $baseurl . '/dashboard/closesession" class="item">Salir &nbsp; <i class="long arrow alternate right icon"></i></a>
                         <div class="ui simple dropdown item">
                             Opciones <i class="dropdown icon"></i>
                             <div class="menu">
-                                <a class="item" href="' . $baseurl . 'dashboard/reportecompras">Reporte Compras</a>
-                                <a class="item" href="' . $baseurl . 'dashboard/reporteventas">Reporte Ventas</a>
-                                <a class="item" href="' . $baseurl . 'dashboard/reporteodt">Reporte ODT</a>
+                                <a class="item" href="' . $baseurl . 'dashboard/reportecompras">Compras Realizadas</a>
+                                <a class="item" href="' . $baseurl . 'dashboard/reporteventas">Inventario</a>
+                                <a class="item" href="' . $baseurl . 'dashboard/reporteodt">Ordernes de Producción</a>
                             </div>
                         </div>
+                        <a href="' . $baseurl . '/dashboard/closesession" class="right item">Salir &nbsp; <i class="long arrow alternate right icon"></i></a>
                     </div>
                 </div>';
         echo $menu;

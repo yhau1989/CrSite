@@ -22,18 +22,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         echo $usuarios['data']; ?>
                     <?php } else { ?>
 
-                    <div class="ui fluid search selection dropdown">
-                        <input type="hidden" name="usuarioProceso">
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Seleccionar usuario</div>
-                        <div class="menu">
-                            <?php foreach ($usuarios['data'] as $clave => $valor) { ?>
-                            <div class="item" data-value="<?php echo $valor['id']; ?>">
-                                <?php echo $valor['usuario']; ?>
+                        <div class="ui fluid search selection dropdown">
+                            <input type="hidden" name="usuarioProceso">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Seleccionar usuario</div>
+                            <div class="menu">
+                                <?php foreach ($usuarios['data'] as $clave => $valor) { ?>
+                                    <div class="item" data-value="<?php echo $valor['id']; ?>">
+                                        <?php echo $valor['usuario']; ?>
+                                    </div>
+                                <?php } ?>
                             </div>
-                            <?php } ?>
                         </div>
-                    </div>
                     <?php } ?>
                 </div>
                 <div class="field">
@@ -42,18 +42,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         echo $materiales['data']; ?>
                     <?php } else { ?>
 
-                    <div class="ui fluid search selection dropdown">
-                        <input type="hidden" name="material">
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Seleccionar tipo de materiales</div>
-                        <div class="menu">
-                            <?php foreach ($materiales['data'] as $clave => $valor) { ?>
-                            <div class="item" data-value="<?php echo $valor['id']; ?>">
-                                <?php echo $valor['tipo']; ?>
+                        <div class="ui fluid search selection dropdown">
+                            <input type="hidden" name="material">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Seleccionar tipo de materiales</div>
+                            <div class="menu">
+                                <?php foreach ($materiales['data'] as $clave => $valor) { ?>
+                                    <div class="item" data-value="<?php echo $valor['id']; ?>">
+                                        <?php echo $valor['tipo']; ?>
+                                    </div>
+                                <?php } ?>
                             </div>
-                            <?php } ?>
                         </div>
-                    </div>
                     <?php } ?>
                 </div>
             </div>
@@ -96,8 +96,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
         <table class="ui celled table" style="overflow-x: scroll">
-        <?php  if($odt['status'] != 0)   {  echo $odt['data']; ?>
-            <?php } else{?>
+            <?php if ($odt['status'] != 0) {
+                echo $odt['data']; ?>
+            <?php } else { ?>
                 <thead>
                     <tr>
                         <th>Código ODT</th>
@@ -113,42 +114,42 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <?php foreach ($odt['data'] as $clave => $valor) { ?>
                         <tr>
                             <td data-label="id"><?php echo $valor['orden_id']; ?></td>
-                            <td data-label="material"><?php echo $valor['material'];?></td>
+                            <td data-label="material"><?php echo $valor['material']; ?></td>
                             <td>
                                 <div class="meta">
                                     <span class="cinema" data-field="proceso_procesar"><b>Status</b>: Completo</span><br>
-                                    <span class="cinema" data-field="usuario_selecciona"><b>Seleccionador</b>: <?php echo $valor['usuario_selecciona'];?></span><br>
-                                    <span class="cinema" data-field="fecha_ini_selecciona"><b>Inicio</b>: <?php echo $valor['fecha_ini_selecciona'];?></span><br>
-                                    <span class="cinema" data-field="fecha_fin_selecciona"><b>Fin</b>: <?php echo $valor['fecha_fin_selecciona'];?></span><br>
+                                    <span class="cinema" data-field="usuario_selecciona"><b>Seleccionador</b>: <?php echo $valor['usuario_selecciona']; ?></span><br>
+                                    <span class="cinema" data-field="fecha_ini_selecciona"><b>Inicio</b>: <?php echo $valor['fecha_ini_selecciona']; ?></span><br>
+                                    <span class="cinema" data-field="fecha_fin_selecciona"><b>Fin</b>: <?php echo $valor['fecha_fin_selecciona']; ?></span><br>
                                 </div>
                             </td>
 
                             <td>
                                 <div class="meta">
-                                    <span class="cinema" data-field="proceso_procesar"><b>Status</b>: <?php echo ($valor['proceso_trituracion'] == 1) ? 'Completo' : 'Pendiente';?></span><br>
-                                    <span class="cinema" data-field="usuario_tritura"><b>Triturador</b>: <?php echo $valor['usuario_tritura'];?></span><br>
-                                    <span class="cinema" data-field="fecha_ini_procesa"><b>Inicio</b>: <?php echo $valor['fecha_ini_tritura'];?></span><br>
-                                    <span class="cinema" data-field="fecha_fin_procesa"><b>Fin</b>: <?php echo $valor['fecha_fin_tritura'];?></span><br>
+                                    <span class="cinema" data-field="proceso_procesar"><b>Status</b>: <?php echo ($valor['proceso_trituracion'] == 1) ? 'Completo' : 'Pendiente'; ?></span><br>
+                                    <span class="cinema" data-field="usuario_tritura"><b>Triturador</b>: <?php echo $valor['usuario_tritura']; ?></span><br>
+                                    <span class="cinema" data-field="fecha_ini_procesa"><b>Inicio</b>: <?php echo $valor['fecha_ini_tritura']; ?></span><br>
+                                    <span class="cinema" data-field="fecha_fin_procesa"><b>Fin</b>: <?php echo $valor['fecha_fin_tritura']; ?></span><br>
                                 </div>
                             </td>
 
                             <td>
                                 <div class="meta">
-                                    <span class="cinema" data-field="proceso_almacenar"><b>Status</b>: <?php echo ($valor['proceso_almacena'] == 1) ? 'Completo' : 'Pendiente';?></span><br>
-                                    <span class="cinema" data-field="usuario_almacena"><b>Almacenador</b>: <?php echo $valor['usuario_almacena'];?></span><br>
-                                    <span class="cinema" data-field="fecha_ini_almacena"><b>Inicio</b>: <?php echo $valor['fecha_ini_almacena'];?></span><br>
-                                    <span class="cinema" data-field="fecha_fin_almacena"><b>Fin</b>: <?php echo $valor['fecha_fin_almacena'];?></span><br>
+                                    <span class="cinema" data-field="proceso_almacenar"><b>Status</b>: <?php echo ($valor['proceso_almacena'] == 1) ? 'Completo' : 'Pendiente'; ?></span><br>
+                                    <span class="cinema" data-field="usuario_almacena"><b>Almacenador</b>: <?php echo $valor['usuario_almacena']; ?></span><br>
+                                    <span class="cinema" data-field="fecha_ini_almacena"><b>Inicio</b>: <?php echo $valor['fecha_ini_almacena']; ?></span><br>
+                                    <span class="cinema" data-field="fecha_fin_almacena"><b>Fin</b>: <?php echo $valor['fecha_fin_almacena']; ?></span><br>
                                 </div>
                             </td>
-                            
-                            
-                            <td data-label="peso"><?php echo $valor['peso_total'] . ' lb';?></td>
-                            <td data-label="faltante"><?php echo $valor['faltante'] . ' lb';?></td>
+
+
+                            <td data-label="peso"><?php echo $valor['peso_total'] . ' lb'; ?></td>
+                            <td data-label="faltante"><?php echo $valor['faltante'] . ' lb'; ?></td>
 
                         </tr>
-                    <?php } ?> 
+                    <?php } ?>
                 </tbody>
-            <?php }?>
+            <?php } ?>
         </table>
 
 
@@ -158,30 +159,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
 
+
     <div class="ui inverted vertical footer segment">
         <div class="separ"></div>
         <div class="ui container">
             <div class="ui stackable inverted divided equal height stackable grid">
-                <div class="three wide column">
-                    <h4 class="ui inverted header">Frameworks Usados</h4>
-                    <div class="ui inverted link list">
-                        <a href="https://facebook.github.io/react-native/" class="item" target="_blank" rel="noopener noreferrer">React Native</a>
-                        <a href="https://medoo.in/" class="item" target="_blank" rel="noopener noreferrer">Medoo</a>
-                        <a href="https://www.codeigniter.com/" class="item" target="_blank" rel="noopener noreferrer">Codeigniter</a>
-                        <a href="https://semantic-ui.com/" class="item" target="_blank" rel="noopener noreferrer">Semantic UI</a>
-                        <a href="https://expo.io/" class="item" target="_blank" rel="noopener noreferrer">Expo</a>
-                    </div>
-                </div>
-                <div class="three wide column">
-                    <h4 class="ui inverted header">Tecnologias Usadas</h4>
-                    <div class="ui inverted link list">
-                        <a href="https://www.mysql.com/" target="_blank" rel="noopener noreferrer" class="item">MySql</a>
-                        <a href="https://php.net/" target="_blank" rel="noopener noreferrer" class="item">PHP</a>
-                        <a href="https://developer.mozilla.org/es/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer" class="item">JavaScript</a>
-                        <a href="https://cloud.google.com/" target="_blank" rel="noopener noreferrer" class="item">Google Cloud</a>
-                    </div>
-                </div>
-                <div class="seven wide column">
+                <div class=" column">
                     <h4 class="ui inverted header">Gracias</h4>
                     <p>Gracias a nuestros profesores por incentivar la investigación y el desarrollo</p>
                 </div>

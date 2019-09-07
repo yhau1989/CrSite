@@ -10,10 +10,9 @@ class Compras_model extends CI_Model {
             $this->table_name = 'compras';
     }
 
-    public function getAllCompras()
+    public function getAllCompras($solodDelDia = null)
     {
         $data = false;
-        $error = 0;
 
         try {
 
@@ -22,6 +21,14 @@ class Compras_model extends CI_Model {
             $this->db->from($this->table_name);
             $this->db->join('proveedor', 'proveedor.id = compras.proveedor','inner');
             $this->db->join('usuario', 'usuario.id = compras.usuario_compra','inner');
+
+           
+            if(isset($solodDelDia))
+            {
+                $fecha = new DateTime();
+                $this->db->where('fecha_compra >= ', $fecha->format('Y-m-d 00:00'));
+            }
+            
             $data = $this->db->get(); 
 
             if($this->db->error()['code'] == 0 && $data->result_id->num_rows > 0)
@@ -30,7 +37,7 @@ class Compras_model extends CI_Model {
             }
             else if($this->db->error()['code'] == 0 && $data->result_id->num_rows == 0)
             {
-                return $this->setErrorMesaage(1, 'No existen compras');
+                return $this->setErrorMesaage(1, 'No existen compras ');
             }
             else
             {
