@@ -21,7 +21,7 @@ class Ventas_model extends CI_Model {
             $this->db->join('usuario', 'usuario.id = ventas.usuario_vendedor','inner');
 
             if (isset($solodDelDia)) {
-                $fecha = new DateTime();
+                $fecha = new DateTime(TIME_ZONE_APP);
                 $this->db->where('fecha_venta >= ', $fecha->format('Y-m-d 00:00'));
             }
 

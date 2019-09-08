@@ -31,11 +31,9 @@ class Odt_model extends CI_Model {
             $this->db->join('tipomateriales', 'tipomateriales.id = ordentrabajo.tipo_material', 'inner');
 
             if (isset($solodDelDia)) {
-                $fecha = new DateTime();
+                $fecha = new DateTime(TIME_ZONE_APP);
                 $this->db->where('fecha_ini_selecciona >= ', $fecha->format('Y-m-d 00:00'));
             }
-
-
 
             $data = $this->db->get(); 
 

@@ -46,7 +46,6 @@ class Dashboard extends CI_Controller {
 		$data['compras'] = $this->Compras_model->getAllCompras(1);
 		$data['ventas'] = $this->Ventas_model->getAllVentas(1);
 		$data['odt'] = $this->Odt_model->getAllODT(1);
-		//var_dump($data['compras']);
 		$this->load->view('dash', $data);
 	}
 

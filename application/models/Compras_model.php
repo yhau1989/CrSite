@@ -25,7 +25,7 @@ class Compras_model extends CI_Model {
            
             if(isset($solodDelDia))
             {
-                $fecha = new DateTime();
+                $fecha = new DateTime(TIME_ZONE_APP);
                 $this->db->where('fecha_compra >= ', $fecha->format('Y-m-d 00:00'));
             }
             
