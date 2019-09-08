@@ -65,7 +65,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <tr>
                                     <th>Id compra</th>
                                     <th>Proveedor</th>
-                                    <th>Lote</th>
+                                    <th>Peso total</th>
                                     <th>Valor total</th>
                                     <th>Comprador</th>
                                     <th>Fecha</th>
@@ -77,7 +77,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <tr>
                                         <td data-label="id_compra"><?php echo str_pad($valor['id'], 10, "0", STR_PAD_LEFT); ?></td>
                                         <td data-label="proveedor"><?php echo $valor['proveedor']; ?></td>
-                                        <td data-label="lote"><?php echo $valor['lote']; ?></td>
+                                        <td data-label="peso_total"><?php echo $valor['peso_total']; ?></td>
                                         <td data-label="valor_total"><?php echo '$ ' . $valor['valor_total']; ?></td>
                                         <td data-label="comprador"><?php echo $valor['comprador']; ?></td>
                                         <td data-label="fecha_compra"><?php echo $valor['fecha_compra']; ?></td>

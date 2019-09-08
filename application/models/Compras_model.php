@@ -16,7 +16,7 @@ class Compras_model extends CI_Model {
 
         try {
 
-            $this->db->select("compras.id, CONCAT(proveedor.nombres,' ',proveedor.apellidos)  as proveedor,lote, compras.valor_total, 
+            $this->db->select("compras.id, CONCAT(proveedor.nombres,' ',proveedor.apellidos)  as proveedor, compras.peso_total, compras.valor_total, 
             compras.fecha_compra, CONCAT(usuario.nombres,' ',usuario.apellidos) AS comprador");
             $this->db->from($this->table_name);
             $this->db->join('proveedor', 'proveedor.id = compras.proveedor','inner');
@@ -74,7 +74,7 @@ class Compras_model extends CI_Model {
         //var_dump($datos);
         try {
 
-            $this->db->select("compras.id, CONCAT(proveedor.nombres,' ',proveedor.apellidos)  as proveedor,lote, compras.valor_total, 
+            $this->db->select("compras.id, CONCAT(proveedor.nombres,' ',proveedor.apellidos)  as proveedor,compras.peso_total, compras.valor_total, 
             compras.fecha_compra, CONCAT(usuario.nombres,' ',usuario.apellidos) AS comprador");
             $this->db->from( $this->table_name);
             $this->db->join('proveedor', 'proveedor.id = compras.proveedor','inner');
