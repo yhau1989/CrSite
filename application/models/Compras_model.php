@@ -4,17 +4,18 @@ class Compras_model extends CI_Model {
 
     public function __construct()
     {
-            parent::__construct();
-            // Your own constructor code
-            $this->load->database();
-            $this->table_name = 'compras';
+        parent::__construct();
+        // Your own constructor code
+        $this->load->database();
+        $this->table_name = 'compras';
     }
 
     public function getAllCompras($solodDelDia = null)
     {
         $data = false;
 
-        try {
+        try 
+        {
 
             $this->db->select("compras.id, CONCAT(proveedor.nombres,' ',proveedor.apellidos)  as proveedor, compras.peso_total, compras.valor_total, 
             compras.fecha_compra, CONCAT(usuario.nombres,' ',usuario.apellidos) AS comprador");
@@ -113,6 +114,123 @@ class Compras_model extends CI_Model {
         }
     }
 
+
+
+    public function getCompra($idCompra)
+    {
+        try {
+
+            $this->db->select("compras.id, CONCAT(proveedor.nombres,' ',proveedor.apellidos)  as proveedor, compras.peso_total, compras.valor_total, 
+            compras.fecha_compra, CONCAT(usuario.nombres,' ',usuario.apellidos) AS comprador");
+            $this->db->from($this->table_name);
+            $this->db->join('proveedor', 'proveedor.id = compras.proveedor','inner');
+            $this->db->join('usuario', 'usuario.id = compras.usuario_compra','inner');
+            $this->db->where('compras.id',$idCompra);
+
+            $data = $this->db->get(); 
+
+            if($this->db->error()['code'] == 0 && $data->result_id->num_rows > 0)
+            {
+                $cabecera = array('status' => 0,'data' =>  $data->result_array());
+                
+                //get Items
+                $items = $this->getDetalleCompra($idCompra);
+                if($items['status'] == 0)
+                {
+                    $subtotales = $this->getDetalleCompraSubtotales($idCompra);
+                    if($subtotales['status'] == 0)
+                    {
+                        return array(
+                            'status' => 0,
+                            'data' => array(
+                                'cabecera' => $cabecera['data'],
+                                'items' => $items['data'],
+                                'totales' =>  $subtotales['data']
+                            )                          
+                        );
+                    }
+                    else
+                    {
+                        return $subtotales;
+                    }
+                }
+                else
+                {
+                    return $items;
+                }
+            }
+            else if($this->db->error()['code'] == 0 && $data->result_id->num_rows == 0)
+            {
+                return $this->setErrorMesaage(1, 'No existen venta');
+            }
+            else
+            {
+                return $this->setErrorMesaage($this->db->error()['code'], $this->db->error()["message"]);
+            }
+
+        } catch (Exception $th) {
+            return $this->setErrorMesaage(99, $th);
+        }
+    }
+
+
+    public function getDetalleCompra($idCompra)
+    {
+        try {
+
+            $this->db->select("compradetalle.id_detalle_compra, tipomateriales.tipo AS material, 
+                                compradetalle.peso, compradetalle.valor, compradetalle.iva,
+                                compradetalle.valor_total");
+            $this->db->from('compradetalle');
+            $this->db->join('tipomateriales', 'tipomateriales.id = compradetalle.id_material','inner');
+            $this->db->where('compradetalle.id_compra', $idCompra);
+            $data = $this->db->get(); 
+
+            if($this->db->error()['code'] == 0 && $data->result_id->num_rows > 0)
+            {
+                return array('status' => 0,'data' =>  $data->result_array());
+            }
+            else if($this->db->error()['code'] == 0 && $data->result_id->num_rows == 0)
+            {
+                return $this->setErrorMesaage(1, 'No existen detalle para la venta');
+            }
+            else
+            {
+                return $this->setErrorMesaage($this->db->error()['code'], $this->db->error()["message"]);
+            }
+
+        } catch (Exception $th) {
+            return $this->setErrorMesaage(99, $th);
+        }
+    }
+
+
+    public function getDetalleCompraSubtotales($idCompra)
+    {
+        $this->db->select("SUM(valor) as SubTotal, (SUM(valor) * 0.12) as IVA");
+        $this->db->from('compradetalle');
+        $this->db->where('id_compra', $idCompra);
+        $data = $this->db->get(); 
+
+        try 
+        {
+            if($this->db->error()['code'] == 0 && $data->result_id->num_rows > 0)
+            {
+               return array('status' => 0,'data' =>  $data->result_array());
+            }
+            else if($this->db->error()['code'] == 0 && $data->result_id->num_rows == 0)
+            {
+                return $this->setErrorMesaage(1, 'error al generar el calculo');
+            }
+            else
+            {
+                return $this->setErrorMesaage($this->db->error()['code'], $this->db->error()["message"]);
+            }
+            
+        } catch (Exception $th) {
+            return $this->setErrorMesaage(99, $th);
+        }
+    }
 
 
 

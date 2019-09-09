@@ -94,7 +94,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <tbody>
                     <?php foreach ($compras['data'] as $clave => $valor) { ?>
                         <tr>
-                            <td data-label="id_compra"><?php echo str_pad($valor['id'], 10, "0", STR_PAD_LEFT); ?></td>
+                            <td data-label="id_compra">
+                                <a href="<?php echo strtolower(base_url()) . 'dashboard/detallecompra/' . $valor['id']; ?>"><?php echo str_pad($valor['id'], 10, "0", STR_PAD_LEFT); ?></a>
+                            </td>
                             <td data-label="proveedor"><?php echo $valor['proveedor']; ?></td>
                             <td data-label="peso_total"><?php echo $valor['peso_total']; ?></td>
                             <td data-label="valor_total"><?php echo '$ ' . $valor['valor_total']; ?></td>

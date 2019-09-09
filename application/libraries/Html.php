@@ -16,6 +16,9 @@ class Html
                     <script rel="preload" src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
                     <script rel="preload" src="' . $baseurl . 'js/semantic.min.js"></script>
                     <script rel="preload" src="' . $baseurl . 'js/site.js"></script>
+                    <script rel="preload" src="' . $baseurl . 'js/tableExport/tableExport.js"></script>
+                    <script rel="preload" src="' . $baseurl . 'js/tableExport/jquery.base64.js"></script>
+
                 </head>
                 <body>';
         echo $top;

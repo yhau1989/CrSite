@@ -61,20 +61,17 @@ class Dashboard extends CI_Controller {
 	{
 		if ($this->input->post()) 
 		{
-			//$this->load->view('welcome_message');
 			$data['ventas'] = $this->Ventas_model->filtrarVentas($_POST);
 			$data['clientes'] = $this->Cliente_model->getAllClientes();
 			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
-			//var_dump($data['lotes']);
 			$this->load->view('dashventas', $data);
 		}
 		else
 		{
-			//$this->load->view('welcome_message');
 			$data['ventas'] = $this->Ventas_model->getAllVentas();
 			$data['clientes'] = $this->Cliente_model->getAllClientes();
 			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
-			//var_dump($data['lotes']);
+			
 			$this->load->view('dashventas', $data);
 		}
 
@@ -103,9 +100,6 @@ class Dashboard extends CI_Controller {
 	public function reportelotes()
 	{
 		if ($this->input->post()) {
-			//var_dump($_POST);
-
-			
 			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
 			$data['lotes'] = $this->Lotes_model->filtrarLotes($_POST);
 			$data['materiales'] = $this->Material_model->getAllMateriales();
@@ -154,18 +148,35 @@ class Dashboard extends CI_Controller {
 			header('Location: ' .  strtolower(base_url()) . 'dashboard/reporteventas');
 		}
 
-		
-		
 		$data['id_venta'] = $idVenta;
 		$data['venta'] = $this->Ventas_model->getVenta($idVenta);
 		$data['clientes'] = $this->Cliente_model->getAllClientes();
 		$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
 		$this->load->view('dashventadetalle', $data);
-		
-		
-		
-		
 	}
+
+
+	public function detallecompra($idcompra=null)
+	{
+
+		try {
+			if (!isset($idcompra) || $idcompra <= 0) {
+				header('Location: ' .  strtolower(base_url()) . 'dashboard/reporteventas');
+			}
+		} catch (Exception $th) {
+			header('Location: ' .  strtolower(base_url()) . 'dashboard/reporteventas');
+		}
+
+		$data['id_compra'] = $idcompra;
+		$data['compras'] = $this->Compras_model->getCompra($idcompra);
+		$data['clientes'] = $this->Cliente_model->getAllClientes();
+		$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+		//var_dump($data['compras']['data']['cabecera']);
+		$this->load->view('dashcompradetalle', $data);
+	}
+
+
+	
 
 
 }
