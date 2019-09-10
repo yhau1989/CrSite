@@ -11,7 +11,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <div class="ui main container dash">
         <div class="separ"></div>
-        <h1 class="ui header">Reporte Lotes</h1>
+        <h1 class="ui header">Reporte bodega pendiente de procesar</h1>
 
 
         <form class="ui form" id="reporteVentasForm" method="post" accept-charset="utf-8">
@@ -149,9 +149,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             </td>
 
                             <td data-label="material"><?php echo $valor['material']; ?></td>
-                            <td data-label="peso"><?php echo $valor['peso'] . ' lb'; ?></td>
+                            <td data-label="peso" style="text-align: right;"><?php echo $valor['peso'] . MEDIDA_PESO; ?></td>
                         </tr>
                     <?php } ?>
+                    <tr>
+                        <td colspan="6" style="text-align: center;"> TOTALES </td>
+                        <td style="text-align: right;"><?php echo $sumatorias['sumPeso'] . MEDIDA_PESO; ?></td>
+                    </tr>
+
+
                 </tbody>
             <?php } ?>
         </table>

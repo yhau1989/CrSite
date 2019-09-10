@@ -85,7 +85,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <?php foreach ($venta['data']['items'] as $clave => $valor) { ?>
                             <tr>
                                 <td data-label="id"><?php echo $clave + 1; ?></td>
-                                <td data-label="peso"><?php echo $valor['peso']; ?></td>
+                                <td data-label="peso"><?php echo $valor['peso'] . MEDIDA_PESO; ?></td>
                                 <td data-label="descripcion"><?php echo $valor['descripcion']; ?></td>
                                 <td data-label="valor"><?php echo '$ ' . $valor['valor']; ?></td>
                                 <td data-label="iva"><?php echo '$ ' . $valor['iva']; ?></td>

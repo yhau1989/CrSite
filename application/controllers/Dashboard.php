@@ -137,6 +137,7 @@ class Dashboard extends CI_Controller {
 		if ($this->input->post()) {
 			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
 			$data['lotes'] = $this->Lotes_model->filtrarLotes($_POST);
+			$data['sumatorias'] = $this->sumReportLotes($data['lotes']);
 			$data['materiales'] = $this->Material_model->getAllMateriales();
 
 			$this->load->view('dashlotes', $data);
@@ -145,11 +146,25 @@ class Dashboard extends CI_Controller {
 
 			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
 			$data['lotes'] = $this->Lotes_model->getAllLotes();
+			$data['sumatorias'] = $this->sumReportLotes($data['lotes']);
 			$data['materiales'] = $this->Material_model->getAllMateriales();
-			
 			$this->load->view('dashlotes', $data);
-		}
+		}	
+	}
+
+	private function sumReportLotes($lotes)
+	{
 		
+		$sumPeso = 0;
+		if ($lotes['status'] == 0){
+			foreach ($lotes['data'] as $clave => $valor) {
+				$sumPeso = $sumPeso + $valor['peso'];
+			}
+			return array('sumPeso' => $sumPeso);
+		}else
+		{
+			return array('sumPeso' => '0.00');
+		}
 	}
 
 	public function reporteodt()

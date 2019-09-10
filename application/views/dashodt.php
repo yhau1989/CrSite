@@ -70,7 +70,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <label>Proceso</label>
                     <select class="ui fluid dropdown" name="proceso">
                         <option value="">Selecciona un proceso</option>
-                        <option value="1">Selección</option>
+                        <!--<option value="1">Selección</option>-->
                         <option value="2">Trituración</option>
                         <option value="3">Almacenamiento</option>
                     </select>

@@ -27,7 +27,7 @@ class Lotes_model extends CI_Model {
                                 lotes.fecha_ini_almacena, lotes.fecha_fin_almacena, 
                                 tipomateriales.tipo material, lotes.peso");
             $this->db->from('lotes');
-            $this->db->join('compras', 'compras.lote = lotes.lote', 'inner');
+            $this->db->join('compras', 'compras.id = lotes.id_compra', 'inner');
             $this->db->join('usuario as userbuy', 'userbuy.id = compras.usuario_compra', 'inner');
             $this->db->join('usuario AS userselect', 'userselect.id = lotes.usuario_selecciona', 'left');
             $this->db->join('usuario AS usertritura', 'usertritura.id = lotes.usuario_procesa', 'left');
@@ -93,7 +93,7 @@ class Lotes_model extends CI_Model {
                                 lotes.fecha_ini_almacena, lotes.fecha_fin_almacena, 
                                 tipomateriales.tipo material, lotes.peso");
             $this->db->from('lotes');
-            $this->db->join('compras', 'compras.lote = lotes.lote', 'inner');
+            $this->db->join('compras', 'compras.id = lotes.id_compra', 'inner');
             $this->db->join('usuario as userbuy', 'userbuy.id = compras.usuario_compra', 'inner');
             $this->db->join('usuario AS userselect', 'userselect.id = lotes.usuario_selecciona', 'left');
             $this->db->join('usuario AS usertritura', 'usertritura.id = lotes.usuario_procesa', 'left');
