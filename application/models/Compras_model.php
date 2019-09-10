@@ -234,5 +234,42 @@ class Compras_model extends CI_Model {
 
 
 
+    public function comprasPorProductos($datos=null)
+    {
+        try 
+        {
 
+            $this->db->select("compradetalle.id_detalle_compra, compradetalle.id_compra,tipomateriales.tipo AS material, 
+            compradetalle.peso, compradetalle.valor, compradetalle.valor_total , compradetalle.fecha_item");
+            $this->db->from('compradetalle');
+            $this->db->join('tipomateriales', 'tipomateriales.id = compradetalle.id_material','inner');
+            
+            if(strlen($datos['fdesde']) > 0) 
+            {$this->db->where('fecha_item >= ', $datos['fdesde'] . ' 00:00');}
+    
+            if(strlen($datos['fhasta']) > 0) 
+            {$this->db->where('fecha_item <=',$datos['fhasta'] . ' 23:59');}
+    
+            if(strlen($datos['material']) > 0) 
+            {$this->db->where('id_material',$datos['material']);}
+
+            $data = $this->db->get(); 
+
+            if($this->db->error()['code'] == 0 && $data->result_id->num_rows > 0)
+            {
+                return array('status' => 0,'data' =>  $data->result_array());
+            }
+            else if($this->db->error()['code'] == 0 && $data->result_id->num_rows == 0)
+            {
+                return $this->setErrorMesaage(1, 'No existen datos para la consulta');
+            }
+            else
+            {
+                return $this->setErrorMesaage($this->db->error()['code'], $this->db->error()["message"]);
+            }
+
+        } catch (Exception $th) {
+            return $this->setErrorMesaage(99, $th);
+        }
+    }
 }

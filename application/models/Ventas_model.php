@@ -228,6 +228,41 @@ class Ventas_model extends CI_Model {
     }
 
 
+    public function ventasPorProducto($datos=null)
+    {
+        $this->db->select("ventadetalle.id_venta, tipomateriales.id AS id_material, tipomateriales.tipo AS material, ventadetalle.peso, ventadetalle.valor, ventadetalle.fecha_item");
+        $this->db->from('ventadetalle');
+        $this->db->join('tipomateriales', 'tipomateriales.id = ventadetalle.id_material','inner');
+           
+        if(strlen($datos['fdesde']) > 0) 
+        {$this->db->where('fecha_item >= ', $datos['fdesde'] . ' 00:00');}
 
+        if(strlen($datos['fhasta']) > 0) 
+        {$this->db->where('fecha_item <=',$datos['fhasta'] . ' 23:59');}
+
+        if(strlen($datos['material']) > 0) 
+        {$this->db->where('id_material',$datos['material']);}
+
+        $data = $this->db->get(); 
+
+        try 
+        {
+            if($this->db->error()['code'] == 0 && $data->result_id->num_rows > 0)
+            {
+               return array('status' => 0,'data' =>  $data->result_array());
+            }
+            else if($this->db->error()['code'] == 0 && $data->result_id->num_rows == 0)
+            {
+                return $this->setErrorMesaage(1, 'No existen datos para consulta');
+            }
+            else
+            {
+                return $this->setErrorMesaage($this->db->error()['code'], $this->db->error()["message"]);
+            }
+            
+        } catch (Exception $th) {
+            return $this->setErrorMesaage(99, $th);
+        }
+    }
 
 }

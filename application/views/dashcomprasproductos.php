@@ -11,44 +11,36 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <div class="ui main container dash">
         <div class="separ"></div>
-        <h1 class="ui header">Reporte Compras por productos</h1>
+        <h1 class="ui header">Reporte de compras por material</h1>
 
-        <form class="ui form" id="reporteComprasForm" method="post" accept-charset="utf-8">
+        <form class="ui form" id="reporteComprasProductosForm" method="post" accept-charset="utf-8">
             <div class="two fields">
                 <div class="field">
-                    <label>Usuario comprador</label>
-                    <?php if ($usuarios['status'] != 0) {
-                        echo $usuarios['data']; ?>
-                    <?php } else { ?>
-
-                        <div class="ui fluid search selection dropdown">
-                            <input type="hidden" name="comprador">
-                            <i class="dropdown icon"></i>
-                            <div class="default text">Seleccionar usuario</div>
-                            <div class="menu">
-                                <?php foreach ($usuarios['data'] as $clave => $valor) { ?>
-                                    <div class="item" data-value="<?php echo $valor['id']; ?>">
-                                        <?php echo $valor['usuario']; ?>
-                                    </div>
-                                <?php } ?>
-                            </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Fecha desde</label>
+                            <input id="fdesde" name="fdesde" type="date" onchange="validaFechas()" onkeyup="validaFechas()">
                         </div>
-                    <?php } ?>
+                        <div class="field">
+                            <label>Fecha hasta</label>
+                            <input id="fhasta" name="fhasta" type="date" onchange="validaFechas()" onkeyup="validaFechas()">
+                        </div>
+                    </div>
                 </div>
                 <div class="field">
-                    <label>Proveedor</label>
-                    <?php if ($proveedores['status'] != 0) {
-                        echo $proveedores['data']; ?>
+                    <label>Material</label>
+                    <?php if ($materiales['status'] != 0) {
+                        echo $materiales['data']; ?>
                     <?php } else { ?>
 
                         <div class="ui fluid search selection dropdown">
-                            <input type="hidden" name="proveedor">
+                            <input type="hidden" name="material">
                             <i class="dropdown icon"></i>
-                            <div class="default text">Seleccionar proveedor</div>
+                            <div class="default text">Seleccionar material</div>
                             <div class="menu">
-                                <?php foreach ($proveedores['data'] as $clave => $valor) { ?>
+                                <?php foreach ($materiales['data'] as $clave => $valor) { ?>
                                     <div class="item" data-value="<?php echo $valor['id']; ?>">
-                                        <?php echo $valor['proveedor']; ?>
+                                        <?php echo $valor['tipo']; ?>
                                     </div>
                                 <?php } ?>
                             </div>
@@ -56,16 +48,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <?php } ?>
                 </div>
             </div>
-            <div class="fields">
-                <div class="three wide field">
-                    <label>Fecha desde</label>
-                    <input id="fdesde" name="fdesde" type="date" onchange="validaFechas()" onkeyup="validaFechas()">
-                </div>
-                <div class="three wide field">
-                    <label>Fecha hasta</label>
-                    <input id="fhasta" name="fhasta" type="date" onchange="validaFechas()" onkeyup="validaFechas()">
-                </div>
-            </div>
+            
 
 
             <button class="secondary ui button" id="bt_consultar" name="bt_consultar" type="submit">Filtrar</button>
@@ -94,40 +77,32 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <thead>
                     <tr>
                         <th>Id compra</th>
-                        <th>Proveedor</th>
-                        <th>Comprador</th>
-                        <th>Fecha</th>
-                        <th>Peso Total</th>
-                        <th>Valor total</th>
-
+                        <th>Fecha compra</th>
+                        <th>Material</th>
+                        <th>Peso material</th>
+                        <th>Valor total material</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($compras['data'] as $clave => $valor) { ?>
                         <tr>
                             <td data-label="id_compra">
-                                <a href="<?php echo strtolower(base_url()) . 'dashboard/detallecompra/' . $valor['id']; ?>"><?php echo str_pad($valor['id'], 10, "0", STR_PAD_LEFT); ?></a>
+                                <?php echo str_pad($valor['id_compra'], 10, "0", STR_PAD_LEFT); ?>
+                                <!--<a href="<?php echo strtolower(base_url()) . 'dashboard/detallecompra/' . $valor['id_compra']; ?>"><?php echo str_pad($valor['id_compra'], 10, "0", STR_PAD_LEFT); ?></a>-->
                             </td>
-                            <td data-label="proveedor"><?php echo $valor['proveedor']; ?></td>
-                            <td data-label="comprador"><?php echo $valor['comprador']; ?></td>
-                            <td data-label="fecha_compra"><?php echo $valor['fecha_compra']; ?></td>
-                            <td data-label="peso_total" style="text-align: right;"><?php echo $valor['peso_total'] . MEDIDA_PESO; ?></td>
-                            <td data-label="valor_total" style="text-align: right;"><?php echo '$ ' . $valor['valor_total']; ?></td>
+                            <td data-label="fecha_compra"><?php echo $valor['fecha_item']; ?></td>
+                            <td data-label="material"><?php echo $valor['material']; ?></td>
+                            <td data-label="peso_total" style="text-align: right;"><?php echo $valor['peso'] . MEDIDA_PESO; ?></td>
+                            <td data-label="valor_total" style="text-align: right;"><?php echo '$ ' . $valor['valor']; ?></td>
                         </tr>
                     <?php } ?>
-                    <tr>
-                        <td colspan="4" style="text-align: center;"> TOTALES </td>
-                        <td style="text-align: right;"><?php echo $sumatorias['sumPeso'] . MEDIDA_PESO; ?></td>
-                        <td style="text-align: right;"><?php echo '$ ' . $sumatorias['sumValor']; ?></td>
-                    </tr>
+                    
                 </tbody>
             <?php } ?>
         </table>
 
         <div class="separ"></div>
     </div>
-
-
 
 
     <div class="ui inverted vertical footer segment">
@@ -151,14 +126,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <script>
     $(function() {
 
-        $('.ui.dropdown')
-            .dropdown();
+        $('.ui.dropdown').dropdown();
 
         $('#bt_clear').on('click', function() {
             $('.ui.dropdown').dropdown('clear');
-            $('#reporteComprasForm')[0].reset();
+            $("#reporteComprasProductosForm").trigger("reset");
         });
 
+        
 
 
         /*

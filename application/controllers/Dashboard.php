@@ -232,16 +232,13 @@ class Dashboard extends CI_Controller {
 	public function reportecomprasporproductos()
 	{
 		if ($this->input->post()) {
-			$data['compras'] = $this->Compras_model->filtrarCompras($_POST);
-			$data['sumatorias'] = $this->sumReportCompras($data['compras']);
-			$data['proveedores'] = $this->Proveedor_model->getAllProveedores();
-			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+			$data['compras'] = $this->Compras_model->comprasPorProductos($_POST);
+			$data['materiales'] = $this->Material_model->getAllMateriales();
 			$this->load->view('dashcomprasproductos', $data);
+			
 		} else {
-			$data['compras'] = $this->Compras_model->getAllCompras();
-			$data['sumatorias'] = $this->sumReportCompras($data['compras']);
-			$data['proveedores'] = $this->Proveedor_model->getAllProveedores();
-			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+			$data['compras'] = $this->Compras_model->comprasPorProductos();
+			$data['materiales'] = $this->Material_model->getAllMateriales();
 			$this->load->view('dashcomprasproductos', $data);
 		}
 		
@@ -251,17 +248,12 @@ class Dashboard extends CI_Controller {
 	public function reporteventasporproductos()
 	{
 		if ($this->input->post()) {
-			$data['ventas'] = $this->Ventas_model->filtrarVentas($_POST);
-			$data['sumatorias'] = $this->sumReportVentas($data['ventas']);
-			$data['clientes'] = $this->Cliente_model->getAllClientes();
-			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+			$data['ventas'] = $this->Ventas_model->ventasPorProducto($_POST);
+			$data['materiales'] = $this->Material_model->getAllMateriales();
 			$this->load->view('dashventasproductos', $data);
 		} else {
-			$data['ventas'] = $this->Ventas_model->getAllVentas();
-			$data['sumatorias'] = $this->sumReportVentas($data['ventas']);
-			$data['clientes'] = $this->Cliente_model->getAllClientes();
-			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
-
+			$data['ventas'] = $this->Ventas_model->ventasPorProducto();
+			$data['materiales'] = $this->Material_model->getAllMateriales();
 			$this->load->view('dashventasproductos', $data);
 		}
 	}

@@ -14,42 +14,34 @@ defined('BASEPATH') or exit('No direct script access allowed');
         <h1 class="ui header">Reporte Ventas por productos</h1>
 
 
-        <form class="ui form" id="reporteVentasForm" method="post" accept-charset="utf-8">
+        <form class="ui form" id="reporteVentasProductos" method="post" accept-charset="utf-8">
             <div class="two fields">
                 <div class="field">
-                    <label>Usuario vendedor</label>
-                    <?php if ($usuarios['status'] != 0) {
-                        echo $usuarios['data']; ?>
-                    <?php } else { ?>
-
-                        <div class="ui fluid search selection dropdown">
-                            <input type="hidden" name="vendedor">
-                            <i class="dropdown icon"></i>
-                            <div class="default text">Seleccionar usuario</div>
-                            <div class="menu">
-                                <?php foreach ($usuarios['data'] as $clave => $valor) { ?>
-                                    <div class="item" data-value="<?php echo $valor['id']; ?>">
-                                        <?php echo $valor['usuario']; ?>
-                                    </div>
-                                <?php } ?>
-                            </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Fecha desde</label>
+                            <input id="fdesde" name="fdesde" type="date" onchange="validaFechas()" onkeyup="validaFechas()">
                         </div>
-                    <?php } ?>
+                        <div class="field">
+                            <label>Fecha hasta</label>
+                            <input id="fhasta" name="fhasta" type="date" onchange="validaFechas()" onkeyup="validaFechas()">
+                        </div>
+                    </div>
                 </div>
                 <div class="field">
-                    <label>Cliente</label>
-                    <?php if ($clientes['status'] != 0) {
-                        echo $clientes['data']; ?>
+                <label>Material</label>
+                    <?php if ($materiales['status'] != 0) {
+                        echo $materiales['data']; ?>
                     <?php } else { ?>
 
                         <div class="ui fluid search selection dropdown">
-                            <input type="hidden" name="cliente">
+                            <input type="hidden" name="material">
                             <i class="dropdown icon"></i>
-                            <div class="default text">Seleccionar cliente</div>
+                            <div class="default text">Seleccionar material</div>
                             <div class="menu">
-                                <?php foreach ($clientes['data'] as $clave => $valor) { ?>
+                                <?php foreach ($materiales['data'] as $clave => $valor) { ?>
                                     <div class="item" data-value="<?php echo $valor['id']; ?>">
-                                        <?php echo $valor['cliente']; ?>
+                                        <?php echo $valor['tipo']; ?>
                                     </div>
                                 <?php } ?>
                             </div>
@@ -57,16 +49,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <?php } ?>
                 </div>
             </div>
-            <div class="fields">
-                <div class="three wide field">
-                    <label>Fecha desde</label>
-                    <input id="fdesde" name="fdesde" type="date" onchange="validaFechas()" onkeyup="validaFechas()">
-                </div>
-                <div class="three wide field">
-                    <label>Fecha hasta</label>
-                    <input id="fhasta" name="fhasta" type="date" onchange="validaFechas()" onkeyup="validaFechas()">
-                </div>
-            </div>
+            
 
 
             <button class="secondary ui button" id="bt_consultar" name="bt_consultar" type="submit">Filtrar</button>
@@ -93,28 +76,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <thead>
                     <tr>
                         <th>Id venta</th>
-                        <th>Cliente</th>
-                        <th>Vendedor</th>
-                        <th>Fecha</th>
-                        <th>Valor total</th>
+                        <th>Fecha venta</th>
+                        <th>Material</th>
+                        <th>Peso material</th>
+                        <th>Valor material</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($ventas['data'] as $clave => $valor) { ?>
                         <tr>
                             <td data-label="id">
-                                <a href="<?php echo strtolower(base_url()) . 'dashboard/detalleventa/' . $valor['id']; ?>"><?php echo str_pad($valor['id'], 10, "0", STR_PAD_LEFT); ?></a>
+                                <?php echo str_pad($valor['id_venta'], 10, "0", STR_PAD_LEFT); ?>
+                                <!--<a href="<?php echo strtolower(base_url()) . 'dashboard/detalleventa/' . $valor['id_venta']; ?>"><?php echo str_pad($valor['id_venta'], 10, "0", STR_PAD_LEFT); ?></a>-->
                             </td>
-                            <td data-label="cliente"><?php echo $valor['cliente']; ?></td>
-                            <td data-label="vendedor"><?php echo $valor['vendedor']; ?></td>
-                            <td data-label="fecha_venta"><?php echo $valor['fecha_venta']; ?></td>
-                            <td data-label="valor_total" style="text-align: right;"><?php echo '$ ' . $valor['valor_total']; ?></td>
+                            <td data-label="fecha_item"><?php echo $valor['fecha_item']; ?></td>
+                            <td data-label="material"><?php echo $valor['material']; ?></td>
+                            <td data-label="peso" style="text-align: right;"><?php echo $valor['peso'] . MEDIDA_PESO; ?></td>
+                            <td data-label="valor" style="text-align: right;"><?php echo '$ ' . $valor['valor']; ?></td>
                         </tr>
                     <?php } ?>
-                    <tr>
-                        <td colspan="4" style="text-align: center;"> TOTALES </td>
-                        <td style="text-align: right;"><?php echo '$ ' . $sumatorias['sumValor']; ?></td>
-                    </tr>
                 </tbody>
             <?php } ?>
         </table>

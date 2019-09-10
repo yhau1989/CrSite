@@ -16,6 +16,7 @@ class Material_model extends CI_Model {
 
             $this->db->select("id, tipo");
             $this->db->from($this->table_name);
+            $this->db->where('estado',1);
             $data = $this->db->get(); 
 
             if($this->db->error()['code'] == 0 && $data->result_id->num_rows > 0)
