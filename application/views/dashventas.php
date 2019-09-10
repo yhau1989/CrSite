@@ -84,9 +84,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <tr>
                         <th>Id venta</th>
                         <th>Cliente</th>
-                        <th>Valor total</th>
                         <th>Vendedor</th>
                         <th>Fecha</th>
+                        <th>Valor total</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -96,11 +96,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <a href="<?php echo strtolower(base_url()) . 'dashboard/detalleventa/' . $valor['id']; ?>"><?php echo str_pad($valor['id'], 10, "0", STR_PAD_LEFT); ?></a>
                             </td>
                             <td data-label="cliente"><?php echo $valor['cliente']; ?></td>
-                            <td data-label="valor_total"><?php echo '$ ' . $valor['valor_total']; ?></td>
                             <td data-label="vendedor"><?php echo $valor['vendedor']; ?></td>
                             <td data-label="fecha_venta"><?php echo $valor['fecha_venta']; ?></td>
+                            <td data-label="valor_total" style="text-align: right;"><?php echo '$ ' . $valor['valor_total']; ?></td>
                         </tr>
                     <?php } ?>
+                    <tr>
+                        <td colspan="4" style="text-align: center;"> TOTALES </td>
+                        <td style="text-align: right;"><?php echo '$ ' . $sumatorias['sumValor']; ?></td>
+                    </tr>
                 </tbody>
             <?php } ?>
         </table>

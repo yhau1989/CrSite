@@ -62,6 +62,7 @@ class Dashboard extends CI_Controller {
 		if ($this->input->post()) 
 		{
 			$data['ventas'] = $this->Ventas_model->filtrarVentas($_POST);
+			$data['sumatorias'] = $this->sumReportVentas($data['ventas']);
 			$data['clientes'] = $this->Cliente_model->getAllClientes();
 			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
 			$this->load->view('dashventas', $data);
@@ -69,20 +70,34 @@ class Dashboard extends CI_Controller {
 		else
 		{
 			$data['ventas'] = $this->Ventas_model->getAllVentas();
+			$data['sumatorias'] = $this->sumReportVentas($data['ventas']);
 			$data['clientes'] = $this->Cliente_model->getAllClientes();
 			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
 			
 			$this->load->view('dashventas', $data);
 		}
-
-		
 	}
+
+	private function sumReportVentas($ventas)
+	{
+		$sumValor = 0;
+		if ($ventas['status'] == 0) {
+			foreach ($ventas['data'] as $clave => $valor) {
+				$sumValor = $sumValor + $valor['valor_total'];
+			}
+			return array('sumValor' => $sumValor);
+		} else {
+			return array('sumValor' => '0.00');
+		}
+	}
+
 
 	public function reportecompras()
 	{
 		if ($this->input->post()) 
 		{			
 			$data['compras'] = $this->Compras_model->filtrarCompras($_POST);
+			$data['sumatorias'] = $this->sumReportCompras($data['compras']);
 			$data['proveedores'] = $this->Proveedor_model->getAllProveedores();
 			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
 			$this->load->view('dashcompras', $data);
@@ -91,11 +106,31 @@ class Dashboard extends CI_Controller {
 		else
 		{
 			$data['compras'] = $this->Compras_model->getAllCompras();
+			$data['sumatorias'] = $this->sumReportCompras($data['compras']);
 			$data['proveedores'] = $this->Proveedor_model->getAllProveedores();
 			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
 			$this->load->view('dashcompras', $data);
 		}
 	}
+
+	private function sumReportCompras($compras)
+	{
+		$sumValor = 0;
+		$sumPeso = 0;
+		if ($compras['status'] == 0){
+			foreach ($compras['data'] as $clave => $valor) {
+				$sumValor = $sumValor + $valor['valor_total'];
+				$sumPeso = $sumPeso + $valor['peso_total'];
+			}
+			return array('sumValor' => $sumValor, 'sumPeso' => $sumPeso);
+		}else
+		{
+			return array('sumValor' => '0.00', 'sumPeso' => '0.00');
+		}
+	}
+
+
+
 
 	public function reportelotes()
 	{
@@ -122,6 +157,7 @@ class Dashboard extends CI_Controller {
 		if ($this->input->post()) {
 			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
 			$data['odt'] = $this->Odt_model->filtrarODT($_POST);
+			$data['sumatorias'] = $this->sumReportOdt($data['odt']);
 			$data['materiales'] = $this->Material_model->getAllMateriales();
 			$this->load->view('dashodt', $data);
 			
@@ -129,11 +165,27 @@ class Dashboard extends CI_Controller {
 
 			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
 			$data['odt'] = $this->Odt_model->getAllODT();
+			$data['sumatorias'] = $this->sumReportOdt($data['odt']);
 			$data['materiales'] = $this->Material_model->getAllMateriales();
 			
 			$this->load->view('dashodt', $data);
 		}
 		
+	}
+
+	private function sumReportOdt($odts)
+	{
+		$sumPeso = 0;
+		$sumFaltante = 0;
+		if ($odts['status'] == 0) {
+			foreach ($odts['data'] as $clave => $valor) {
+				$sumPeso = $sumPeso + $valor['peso_total'];
+				$sumFaltante = $sumFaltante + $valor['faltante'];
+			}
+			return array('sumPeso' => $sumPeso, 'sumFaltante' => $sumFaltante);
+		} else {
+			return array('sumPeso' => '0.00', 'sumFaltante' => '0.00');
+		}
 	}
 
 
@@ -155,6 +207,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashventadetalle', $data);
 	}
 
+	
 
 	public function detallecompra($idcompra=null)
 	{
@@ -174,6 +227,46 @@ class Dashboard extends CI_Controller {
 		//var_dump($data['compras']['data']['cabecera']);
 		$this->load->view('dashcompradetalle', $data);
 	}
+
+
+	public function reportecomprasporproductos()
+	{
+		if ($this->input->post()) {
+			$data['compras'] = $this->Compras_model->filtrarCompras($_POST);
+			$data['sumatorias'] = $this->sumReportCompras($data['compras']);
+			$data['proveedores'] = $this->Proveedor_model->getAllProveedores();
+			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+			$this->load->view('dashcomprasproductos', $data);
+		} else {
+			$data['compras'] = $this->Compras_model->getAllCompras();
+			$data['sumatorias'] = $this->sumReportCompras($data['compras']);
+			$data['proveedores'] = $this->Proveedor_model->getAllProveedores();
+			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+			$this->load->view('dashcomprasproductos', $data);
+		}
+		
+		
+	}
+
+	public function reporteventasporproductos()
+	{
+		if ($this->input->post()) {
+			$data['ventas'] = $this->Ventas_model->filtrarVentas($_POST);
+			$data['sumatorias'] = $this->sumReportVentas($data['ventas']);
+			$data['clientes'] = $this->Cliente_model->getAllClientes();
+			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+			$this->load->view('dashventasproductos', $data);
+		} else {
+			$data['ventas'] = $this->Ventas_model->getAllVentas();
+			$data['sumatorias'] = $this->sumReportVentas($data['ventas']);
+			$data['clientes'] = $this->Cliente_model->getAllClientes();
+			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+
+			$this->load->view('dashventasproductos', $data);
+		}
+	}
+
+	
 
 
 	

@@ -11,7 +11,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <div class="ui main container dash">
         <div class="separ"></div>
-        <h1 class="ui header">Reporte Compras</h1>
+        <h1 class="ui header">Reporte Compras por productos</h1>
 
         <form class="ui form" id="reporteComprasForm" method="post" accept-charset="utf-8">
             <div class="two fields">
@@ -76,7 +76,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
         <div class="separ"></div>
         <h3 class="ui dividing header"></h3>
-        <table class="ui celled table">
+
+
+
+        <?php if ($compras['status'] == 0) { ?>
+            <div id="exportTable" class="secondary ui button">
+                <i class="arrow alternate circle down icon"></i>
+                Exportar a Excel
+            </div>
+        <?php } ?>
+
+
+        <table id="ReporteComprasPorProductos" class="ui celled table">
             <?php if ($compras['status'] != 0) {
                 echo $compras['data']; ?>
             <?php } else { ?>
@@ -149,7 +160,27 @@ defined('BASEPATH') or exit('No direct script access allowed');
         });
 
 
+
+        /*
+                Export a Excel desde Html con Jquery
+                https: //w3lessons.info/export-html-table-to-excel-csv-json-pdf-png-using-jquery/#Download_HTML_Table_Data_to_Excel_CSV_XML_PDF_Plugin
+                
+        */
+        $('#exportTable').on('click', function() {
+            $('#ReporteComprasPorProductos').tableExport({
+                type: 'excel',
+                escape: 'false',
+            });
+        });
+
+
     });
 </script>
+
+
+
+
+
+
 
 <?php $this->html->footer(); ?>

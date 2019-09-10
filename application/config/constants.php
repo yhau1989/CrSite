@@ -87,3 +87,5 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 //timezone App
 defined('TIME_ZONE_APP')      OR define('TIME_ZONE_APP', 'America/Guayaquil'); // highest automatically-assigned error code
+//medida de peso
+defined('MEDIDA_PESO')      or define('MEDIDA_PESO', ' Kg'); // highest automatically-assigned error code

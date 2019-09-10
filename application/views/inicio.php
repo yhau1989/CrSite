@@ -131,25 +131,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <div class="separ"></div>
     <div class="ui container">
       <div class="ui stackable inverted divided equal height stackable grid">
-        <div class="three wide column">
-          <h4 class="ui inverted header">Frameworks Usados</h4>
-          <div class="ui inverted link list">
-            <a href="https://facebook.github.io/react-native/" class="item" target="_blank" rel="noopener noreferrer">React Native</a>
-            <a href="https://medoo.in/" class="item" target="_blank" rel="noopener noreferrer">Medoo</a>
-            <a href="https://www.codeigniter.com/" class="item" target="_blank" rel="noopener noreferrer">Codeigniter</a>
-            <a href="https://semantic-ui.com/" class="item" target="_blank" rel="noopener noreferrer">Semantic UI</a>
-            <a href="https://expo.io/" class="item" target="_blank" rel="noopener noreferrer">Expo</a>
-          </div>
-        </div>
-        <div class="three wide column">
-          <h4 class="ui inverted header">Tecnologias Usadas</h4>
-          <div class="ui inverted link list">
-            <a href="https://www.mysql.com/" target="_blank" rel="noopener noreferrer" class="item">MySql</a>
-            <a href="https://php.net/" target="_blank" rel="noopener noreferrer" class="item">PHP</a>
-            <a href="https://developer.mozilla.org/es/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer" class="item">JavaScript</a>
-            <a href="https://cloud.google.com/" target="_blank" rel="noopener noreferrer" class="item">Google Cloud</a>
-          </div>
-        </div>
+        
+      
+
+
         <div class="seven wide column">
           <h4 class="ui inverted header">Gracias</h4>
           <p>Gracias a nuestros profesores por incentivar la investigación y el desarrollo</p>

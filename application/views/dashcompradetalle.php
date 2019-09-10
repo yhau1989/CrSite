@@ -67,10 +67,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
             <div class="separ"></div>
 
-            <div id="exportTable" class="secondary mini ui button">
-                <i class="angle left icon"></i>
-                Exportar a Excel
-            </div>
+           
 
             <table id="DetalleCompra_<?php echo $id_compra; ?>" class="ui celled table">
                 <?php if ($compras['status'] != 0) {
@@ -123,18 +120,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 </div>
 
 
-<!--
-
-    Export a Excel desde Html con Jquery
-    https://w3lessons.info/export-html-table-to-excel-csv-json-pdf-png-using-jquery/#Download_HTML_Table_Data_to_Excel_CSV_XML_PDF_Plugin
--->
-<script>
-   $(function() {
-        $('#exportTable').on('click', function() {
-            $('#DetalleCompra_<?php echo $id_compra; ?>').tableExport({type:'excel',escape:'false'});
-        });
-    });
-</script>
 
 
 <?php $this->html->footer(); ?>

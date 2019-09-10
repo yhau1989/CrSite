@@ -106,7 +106,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <th>Proceso Selecciona</th>
                         <th>Proceso Tritura</th>
                         <th>Proceso Almacena</th>
-                        <th>Peso</th>
+                        <th>Peso ODT original</th>
                         <th>Faltante</th>
                     </tr>
                 </thead>
@@ -143,11 +143,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             </td>
 
 
-                            <td data-label="peso"><?php echo $valor['peso_total'] . ' lb'; ?></td>
-                            <td data-label="faltante"><?php echo $valor['faltante'] . ' lb'; ?></td>
+                            <td data-label="peso" style="text-align: right;"><?php echo $valor['peso_total'] . MEDIDA_PESO; ?></td>
+                            <td data-label="faltante" style="text-align: right;"><?php echo $valor['faltante'] . MEDIDA_PESO; ?></td>
 
                         </tr>
                     <?php } ?>
+                    <tr>
+                        <td colspan="5" style="text-align: center;"> TOTALES </td>
+                        <td style="text-align: right;"><?php echo $sumatorias['sumPeso'] . MEDIDA_PESO; ?></td>
+                        <td style="text-align: right;"><?php echo $sumatorias['sumFaltante']  . MEDIDA_PESO; ?></td>
+                    </tr>
                 </tbody>
             <?php } ?>
         </table>

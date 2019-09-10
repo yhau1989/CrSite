@@ -11,18 +11,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <div class="ui main container dash">
         <div class="separ"></div>
-        <h1 class="ui header">Reporte Compras</h1>
+        <h1 class="ui header">Reporte Ventas por productos</h1>
 
-        <form class="ui form" id="reporteComprasForm" method="post" accept-charset="utf-8">
+
+        <form class="ui form" id="reporteVentasForm" method="post" accept-charset="utf-8">
             <div class="two fields">
                 <div class="field">
-                    <label>Usuario comprador</label>
+                    <label>Usuario vendedor</label>
                     <?php if ($usuarios['status'] != 0) {
                         echo $usuarios['data']; ?>
                     <?php } else { ?>
 
                         <div class="ui fluid search selection dropdown">
-                            <input type="hidden" name="comprador">
+                            <input type="hidden" name="vendedor">
                             <i class="dropdown icon"></i>
                             <div class="default text">Seleccionar usuario</div>
                             <div class="menu">
@@ -36,19 +37,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <?php } ?>
                 </div>
                 <div class="field">
-                    <label>Proveedor</label>
-                    <?php if ($proveedores['status'] != 0) {
-                        echo $proveedores['data']; ?>
+                    <label>Cliente</label>
+                    <?php if ($clientes['status'] != 0) {
+                        echo $clientes['data']; ?>
                     <?php } else { ?>
 
                         <div class="ui fluid search selection dropdown">
-                            <input type="hidden" name="proveedor">
+                            <input type="hidden" name="cliente">
                             <i class="dropdown icon"></i>
-                            <div class="default text">Seleccionar proveedor</div>
+                            <div class="default text">Seleccionar cliente</div>
                             <div class="menu">
-                                <?php foreach ($proveedores['data'] as $clave => $valor) { ?>
+                                <?php foreach ($clientes['data'] as $clave => $valor) { ?>
                                     <div class="item" data-value="<?php echo $valor['id']; ?>">
-                                        <?php echo $valor['proveedor']; ?>
+                                        <?php echo $valor['cliente']; ?>
                                     </div>
                                 <?php } ?>
                             </div>
@@ -73,40 +74,45 @@ defined('BASEPATH') or exit('No direct script access allowed');
         </form>
 
 
-
         <div class="separ"></div>
         <h3 class="ui dividing header"></h3>
-        <table class="ui celled table">
-            <?php if ($compras['status'] != 0) {
-                echo $compras['data']; ?>
+
+
+        <?php if ($ventas['status'] == 0) { ?>
+            <div id="exportTable" class="secondary ui button">
+                <i class="arrow alternate circle down icon"></i>
+                Exportar a Excel
+            </div>
+        <?php } ?>
+
+
+        <table id="ReporteVentasPorProductos" class="ui celled table">
+            <?php if ($ventas['status'] != 0) {
+                echo $ventas['data']; ?>
             <?php } else { ?>
                 <thead>
                     <tr>
-                        <th>Id compra</th>
-                        <th>Proveedor</th>
-                        <th>Comprador</th>
+                        <th>Id venta</th>
+                        <th>Cliente</th>
+                        <th>Vendedor</th>
                         <th>Fecha</th>
-                        <th>Peso Total</th>
                         <th>Valor total</th>
-
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($compras['data'] as $clave => $valor) { ?>
+                    <?php foreach ($ventas['data'] as $clave => $valor) { ?>
                         <tr>
-                            <td data-label="id_compra">
-                                <a href="<?php echo strtolower(base_url()) . 'dashboard/detallecompra/' . $valor['id']; ?>"><?php echo str_pad($valor['id'], 10, "0", STR_PAD_LEFT); ?></a>
+                            <td data-label="id">
+                                <a href="<?php echo strtolower(base_url()) . 'dashboard/detalleventa/' . $valor['id']; ?>"><?php echo str_pad($valor['id'], 10, "0", STR_PAD_LEFT); ?></a>
                             </td>
-                            <td data-label="proveedor"><?php echo $valor['proveedor']; ?></td>
-                            <td data-label="comprador"><?php echo $valor['comprador']; ?></td>
-                            <td data-label="fecha_compra"><?php echo $valor['fecha_compra']; ?></td>
-                            <td data-label="peso_total" style="text-align: right;"><?php echo $valor['peso_total'] . MEDIDA_PESO; ?></td>
+                            <td data-label="cliente"><?php echo $valor['cliente']; ?></td>
+                            <td data-label="vendedor"><?php echo $valor['vendedor']; ?></td>
+                            <td data-label="fecha_venta"><?php echo $valor['fecha_venta']; ?></td>
                             <td data-label="valor_total" style="text-align: right;"><?php echo '$ ' . $valor['valor_total']; ?></td>
                         </tr>
                     <?php } ?>
                     <tr>
                         <td colspan="4" style="text-align: center;"> TOTALES </td>
-                        <td style="text-align: right;"><?php echo $sumatorias['sumPeso'] . MEDIDA_PESO; ?></td>
                         <td style="text-align: right;"><?php echo '$ ' . $sumatorias['sumValor']; ?></td>
                     </tr>
                 </tbody>
@@ -115,6 +121,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
         <div class="separ"></div>
     </div>
+
 
 
 
@@ -136,7 +143,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 </div>
 
 
-
 <script>
     $(function() {
 
@@ -145,11 +151,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
         $('#bt_clear').on('click', function() {
             $('.ui.dropdown').dropdown('clear');
-            $('#reporteComprasForm')[0].reset();
+            $('#reporteVentasForm')[0].reset();
+        });
+
+
+        $('#exportTable').on('click', function() {
+            $('#ReporteVentasPorProductos').tableExport({
+                type: 'excel',
+                escape: 'false',
+            });
         });
 
 
     });
 </script>
+
 
 <?php $this->html->footer(); ?>

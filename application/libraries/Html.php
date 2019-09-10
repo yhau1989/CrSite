@@ -37,8 +37,21 @@ class Html
                         <div class="ui simple dropdown item">
                             Opciones <i class="dropdown icon"></i>
                             <div class="menu">
-                                <a class="item" href="' . $baseurl . 'dashboard/reportecompras">Compras Realizadas</a>
-                                <a class="item" href="' . $baseurl . 'dashboard/reporteventas">Inventario</a>
+                                 <div class="item">
+                                    <b>Compras</b>
+                                    <div class="menu">
+                                        <a class="item" href="' . $baseurl . 'dashboard/reportecompras">Compras Realizadas</a>
+                                        <a class="item" href="' . $baseurl . 'dashboard/reportecomprasporproductos">Compras por productos</a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <b>Ventas</b>
+                                    <div class="menu">
+                                        <a class="item" href="' . $baseurl . 'dashboard/reporteventas">Ventas Realizadas</a>
+                                        <a class="item" href="' . $baseurl . 'dashboard/reporteventasporproductos">Ventas por producto</a>
+                                    </div>
+                                </div>
+                                
                                 <a class="item" href="' . $baseurl . 'dashboard/reporteodt">Ordernes de Producción</a>
                             </div>
                         </div>
