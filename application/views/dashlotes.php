@@ -60,15 +60,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <div class="fields">
                 <div class="three wide field">
                     <label>Fecha desde (proceso)</label>
-                    <input id="fdesde" name="fdesde" type="date" onchange="validaFechas()" onkeyup="validaFechas()">
+                    <input id="fdesde" name="fdesde" type="date" onchange="validaFechas()">
                 </div>
                 <div class="three wide field">
                     <label>Fecha hasta (proceso)</label>
-                    <input id="fhasta" name="fhasta" type="date" onchange="validaFechas()" onkeyup="validaFechas()">
+                    <input id="fhasta" name="fhasta" type="date" onchange="validaFechas()">
                 </div>
                 <div class="three wide field">
                     <label>Proceso</label>
-                    <select class="ui fluid dropdown" name="proceso">
+                    <select id="SltProceso" class="ui fluid dropdown" name="proceso">
                         <option value="">Selecciona un proceso</option>
                         <option value="1">Selección</option>
                         <option value="2">Trituración</option>
@@ -196,6 +196,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
         $('#bt_clear').on('click', function() {
             $('.ui.dropdown').dropdown('clear');
             $('#reporteVentasForm')[0].reset();
+        });
+
+        $('#fdesde').keypress(function(event) {
+            event.preventDefault();
+            return false;
+        });
+
+        $('#fhasta').keypress(function(event) {
+            event.preventDefault();
+            return false;
         });
 
 

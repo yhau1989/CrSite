@@ -148,6 +148,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
             $('#reporteComprasForm')[0].reset();
         });
 
+        $('#fdesde').keypress(function(event) {
+            event.preventDefault();
+            return false;
+        });
+
+        $('#fhasta').keypress(function(event) {
+            event.preventDefault();
+            return false;
+        });
+
 
     });
 </script>

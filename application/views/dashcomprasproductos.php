@@ -19,11 +19,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <div class="two fields">
                         <div class="field">
                             <label>Fecha desde</label>
-                            <input id="fdesde" name="fdesde" type="date" onchange="validaFechas()" onkeyup="validaFechas()">
+                            <input id="fdesde" name="fdesde" type="date" onchange="validaFechas()" >
                         </div>
                         <div class="field">
                             <label>Fecha hasta</label>
-                            <input id="fhasta" name="fhasta" type="date" onchange="validaFechas()" onkeyup="validaFechas()">
+                            <input id="fhasta" name="fhasta" type="date" onchange="validaFechas()" >
                         </div>
                     </div>
                 </div>
@@ -146,6 +146,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 type: 'excel',
                 escape: 'false',
             });
+        });
+
+        $('#fdesde').keypress(function(event) {
+            event.preventDefault();
+            return false;
+        });
+
+        $('#fhasta').keypress(function(event) {
+            event.preventDefault();
+            return false;
         });
 
 

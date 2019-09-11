@@ -68,6 +68,7 @@ class Html
         
         <script>
 
+        
         function validaFechas() 
           {
             const dateControl1 = document.getElementById("fdesde").value;
@@ -82,7 +83,16 @@ class Html
                 var date2 = new Date(parseInt(dateControl2_s[0]), parseInt(dateControl2_s[1]) - 1, parseInt(dateControl2_s[2]));
 
                 if (date2 < date1)
+                {
+                    document.getElementById("bt_consultar").classList.add("disabled");
                     alert("rango de fechas invalido");
+                }
+                else
+                {
+                    document.getElementById("bt_consultar").classList.remove("disabled");
+                }
+
+                   
             }
         }
 
