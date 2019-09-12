@@ -22,6 +22,7 @@ class Compras_model extends CI_Model {
             $this->db->from($this->table_name);
             $this->db->join('proveedor', 'proveedor.id = compras.proveedor','inner');
             $this->db->join('usuario', 'usuario.id = compras.usuario_compra','inner');
+            $this->db->order_by("compras.id", "asc");
 
            
             if(isset($solodDelDia))
@@ -92,7 +93,7 @@ class Compras_model extends CI_Model {
 
             if(strlen($datos['fhasta']) > 0) 
             {$this->db->where('fecha_compra <=',$datos['fhasta'] . ' 23:59');}
-            
+            $this->db->order_by("compras.id", "asc");
             $data = $this->db->get(); 
            
 

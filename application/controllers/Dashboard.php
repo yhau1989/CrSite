@@ -135,6 +135,7 @@ class Dashboard extends CI_Controller {
 	public function reportelotes()
 	{
 		if ($this->input->post()) {
+
 			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
 			$data['lotes'] = $this->Lotes_model->filtrarLotes($_POST);
 			$data['sumatorias'] = $this->sumReportLotes($data['lotes']);
@@ -192,12 +193,14 @@ class Dashboard extends CI_Controller {
 	{
 		$sumPeso = 0;
 		$sumFaltante = 0;
+		$sumAlmacenado = 0;
 		if ($odts['status'] == 0) {
 			foreach ($odts['data'] as $clave => $valor) {
 				$sumPeso = $sumPeso + $valor['peso_total'];
 				$sumFaltante = $sumFaltante + $valor['faltante'];
+				$sumAlmacenado = $sumAlmacenado + ($valor['peso_total'] - $valor['faltante']);
 			}
-			return array('sumPeso' => $sumPeso, 'sumFaltante' => $sumFaltante);
+			return array('sumPeso' => $sumPeso, 'sumFaltante' => $sumFaltante, 'sumAlmacenado' => $sumAlmacenado);
 		} else {
 			return array('sumPeso' => '0.00', 'sumFaltante' => '0.00');
 		}

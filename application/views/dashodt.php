@@ -6,16 +6,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 <div class="container">
 
-<script>
-
-function myFunction()
-{
-    if(document.getElementById("SltProceso").value.length > 0) 
-    {
-        validaFechasODT() ;
-    }
-}
-</script>
+    <script>
+        function myFunction() {
+            if (document.getElementById("SltProceso").value.length > 0) {
+                validaFechasODT();
+            }
+        }
+    </script>
 
     <?php $this->html->menuDashboard(); ?>
 
@@ -78,7 +75,7 @@ function myFunction()
                 </div>
                 <div class="three wide field">
                     <label>Proceso</label>
-                    <select  id="SltProceso" class="ui fluid dropdown" name="proceso" onchange="myFunction()">
+                    <select id="SltProceso" class="ui fluid dropdown" name="proceso" onchange="myFunction()">
                         <option value="">Selecciona un proceso</option>
                         <!--<option value="1">Selección</option>-->
                         <option value="2">Trituración</option>
@@ -118,6 +115,7 @@ function myFunction()
                         <th>Proceso Almacena</th>
                         <th>Peso ODT original</th>
                         <th>Faltante</th>
+                        <th>Almacenado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -155,13 +153,15 @@ function myFunction()
 
                             <td data-label="peso" style="text-align: right;"><?php echo $valor['peso_total'] . MEDIDA_PESO; ?></td>
                             <td data-label="faltante" style="text-align: right;"><?php echo $valor['faltante'] . MEDIDA_PESO; ?></td>
-
+                            <td data-label="faltante" style="text-align: right;"><?php echo (number_format((float) ($valor['peso_total'] - $valor['faltante']), 2, '.', '')) . MEDIDA_PESO; ?></td>
+                           
                         </tr>
                     <?php } ?>
                     <tr>
                         <td colspan="5" style="text-align: center;"> TOTALES </td>
                         <td style="text-align: right;"><?php echo $sumatorias['sumPeso'] . MEDIDA_PESO; ?></td>
                         <td style="text-align: right;"><?php echo $sumatorias['sumFaltante']  . MEDIDA_PESO; ?></td>
+                        <td style="text-align: right;"><?php echo $sumatorias['sumAlmacenado']  . MEDIDA_PESO; ?></td>
                     </tr>
                 </tbody>
             <?php } ?>
@@ -216,11 +216,10 @@ function myFunction()
 
     });
 
-    function validaFechasODT() 
-    {
+    function validaFechasODT() {
         const dateControl1 = document.getElementById("fdesde").value;
         const dateControl2 = document.getElementById("fhasta").value;
-        const procesosSelected = document.getElementById("SltProceso").value; 
+        const procesosSelected = document.getElementById("SltProceso").value;
 
         if (dateControl1.length > 0 && dateControl1.length > 0) {
 
@@ -230,35 +229,24 @@ function myFunction()
             var date1 = new Date(parseInt(dateControl1_s[0]), parseInt(dateControl1_s[1]) - 1, parseInt(dateControl1_s[2]));
             var date2 = new Date(parseInt(dateControl2_s[0]), parseInt(dateControl2_s[1]) - 1, parseInt(dateControl2_s[2]));
 
-            if (date2 < date1)
-            {
+            if (date2 < date1) {
                 document.getElementById("bt_consultar").classList.add("disabled");
                 alert("rango de fechas invalido");
-            }
-            else
-            {    
-                if((dateControl1.length > 0 || dateControl2.length > 0) && procesosSelected.length <= 0)
-                {
+            } else {
+                if ((dateControl1.length > 0 || dateControl2.length > 0) && procesosSelected.length <= 0) {
                     console.log(procesosSelected.length);
                     document.getElementById("bt_consultar").classList.add("disabled");
-                    alert("Se filtra por fecha obligatoriamente debe seleccionar un proceso");
-                }
-                else
-                {
+                    alert("Si filtra por fecha obligatoriamente debe seleccionar un proceso");
+                } else {
                     document.getElementById("bt_consultar").classList.remove("disabled");
                 }
-            }   
-        }
-        else
-        {
-            if((dateControl1.length > 0 || dateControl2.length > 0) && (procesosSelected.length <= 0))
-            {
+            }
+        } else {
+            if ((dateControl1.length > 0 || dateControl2.length > 0) && (procesosSelected.length <= 0)) {
                 console.log(procesosSelected.length);
                 document.getElementById("bt_consultar").classList.add("disabled");
-                alert("Se filtra por fecha obligatoriamente debe seleccionar un proceso");
-            }
-            else
-            {
+                alert("Si filtra por fecha obligatoriamente debe seleccionar un proceso");
+            } else {
                 document.getElementById("bt_consultar").classList.remove("disabled");
             }
         }

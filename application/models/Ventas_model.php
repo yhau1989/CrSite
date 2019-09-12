@@ -24,7 +24,7 @@ class Ventas_model extends CI_Model {
                 $fecha = new DateTime(TIME_ZONE_APP);
                 $this->db->where('fecha_venta >= ', $fecha->format('Y-m-d 00:00'));
             }
-
+            $this->db->order_by("ventas.id", "asc");
             $data = $this->db->get(); 
 
             if($this->db->error()['code'] == 0 && $data->result_id->num_rows > 0)
@@ -205,7 +205,7 @@ class Ventas_model extends CI_Model {
 
             if(strlen($datos['fhasta']) > 0) 
             {$this->db->where('fecha_venta <=',$datos['fhasta'] . ' 23:59');}
-            
+            $this->db->order_by("ventas.id", "asc");
             $data = $this->db->get(); 
            
 

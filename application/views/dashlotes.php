@@ -6,6 +6,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 <div class="container">
 
+    <script>
+        function myFunction() {
+            if (document.getElementById("SltProceso").value.length > 0) {
+                validaFechasODT();
+            }
+        }
+    </script>
+
+
 
     <?php $this->html->menuDashboard(); ?>
 
@@ -60,15 +69,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <div class="fields">
                 <div class="three wide field">
                     <label>Fecha desde (proceso)</label>
-                    <input id="fdesde" name="fdesde" type="date" onchange="validaFechas()">
+                    <input id="fdesde" name="fdesde" type="date" onchange="validaFechasLotes()">
                 </div>
                 <div class="three wide field">
                     <label>Fecha hasta (proceso)</label>
-                    <input id="fhasta" name="fhasta" type="date" onchange="validaFechas()">
+                    <input id="fhasta" name="fhasta" type="date" onchange="validaFechasLotes()">
                 </div>
                 <div class="three wide field">
                     <label>Proceso</label>
-                    <select id="SltProceso" class="ui fluid dropdown" name="proceso">
+                    <select id="SltProceso" class="ui fluid dropdown" name="proceso" onchange="myFunction()">
                         <option value="">Selecciona un proceso</option>
                         <option value="1">Selección</option>
                         <option value="2">Trituración</option>
@@ -208,8 +217,45 @@ defined('BASEPATH') or exit('No direct script access allowed');
             return false;
         });
 
-
     });
+
+
+    function validaFechasLotes() {
+        const dateControl1 = document.getElementById("fdesde").value;
+        const dateControl2 = document.getElementById("fhasta").value;
+        const procesosSelected = document.getElementById("SltProceso").value;
+
+        if (dateControl1.length > 0 && dateControl1.length > 0) {
+
+            var dateControl1_s = dateControl1.split("-");
+            var dateControl2_s = dateControl2.split("-");
+
+            var date1 = new Date(parseInt(dateControl1_s[0]), parseInt(dateControl1_s[1]) - 1, parseInt(dateControl1_s[2]));
+            var date2 = new Date(parseInt(dateControl2_s[0]), parseInt(dateControl2_s[1]) - 1, parseInt(dateControl2_s[2]));
+
+            if (date2 < date1) {
+                document.getElementById("bt_consultar").classList.add("disabled");
+                alert("rango de fechas invalido");
+            } else {
+                if ((dateControl1.length > 0 || dateControl2.length > 0) && procesosSelected.length <= 0) {
+                    console.log(procesosSelected.length);
+                    document.getElementById("bt_consultar").classList.add("disabled");
+                    alert("Si filtra por fecha obligatoriamente debe seleccionar un proceso");
+                } else {
+                    document.getElementById("bt_consultar").classList.remove("disabled");
+                }
+            }
+        } else {
+            if ((dateControl1.length > 0 || dateControl2.length > 0) && (procesosSelected.length <= 0)) {
+                console.log(procesosSelected.length);
+                document.getElementById("bt_consultar").classList.add("disabled");
+                alert("Si filtra por fecha obligatoriamente debe seleccionar un proceso");
+            } else {
+                document.getElementById("bt_consultar").classList.remove("disabled");
+            }
+        }
+
+    }
 </script>
 
 
