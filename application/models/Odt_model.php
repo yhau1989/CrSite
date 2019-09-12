@@ -122,9 +122,9 @@ class Odt_model extends CI_Model {
             
 
             if (strlen($datos['fdesde']) > 0 && strlen($datos['proceso']) == 0) {
-                $this->db->where('ordentrabajo.fecha_ini_selecciona', $datos['fdesde']);
-                $this->db->or_where('ordentrabajo.fecha_ini_tritura', $datos['fdesde']);
-                $this->db->or_where('ordentrabajo.fecha_ini_almacena', $datos['fdesde']);
+                $this->db->where('ordentrabajo.fecha_ini_selecciona', $datos['fdesde'] . ' 00:00');
+                $this->db->or_where('ordentrabajo.fecha_ini_tritura', $datos['fdesde'] . ' 00:00');
+                $this->db->or_where('ordentrabajo.fecha_ini_almacena', $datos['fdesde'] . ' 00:00');
             } else if (strlen($datos['fdesde']) > 0 && strlen($datos['proceso']) > 0) {
                 switch ($datos['proceso']) {
                     case 1:
@@ -155,9 +155,9 @@ class Odt_model extends CI_Model {
             }
 
             if (strlen($datos['fhasta']) > 0 && strlen($datos['proceso']) == 0) {
-                $this->db->where('ordentrabajo.fecha_fin_selecciona', $datos['fhasta']);
-                $this->db->or_where('ordentrabajo.fecha_fin_tritura', $datos['fhasta']);
-                $this->db->or_where('ordentrabajo.fecha_fin_almacena', $datos['fhasta']);
+                $this->db->where('ordentrabajo.fecha_fin_selecciona', $datos['fhasta'] . ' 23:59');
+                $this->db->or_where('ordentrabajo.fecha_fin_tritura', $datos['fhasta'] . ' 23:59');
+                $this->db->or_where('ordentrabajo.fecha_fin_almacena', $datos['fhasta'] . ' 23:59');
             } else if (strlen($datos['fhasta']) > 0 && strlen($datos['proceso']) > 0) {
                 switch ($datos['proceso']) {
                     case 1:
