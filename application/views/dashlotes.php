@@ -9,7 +9,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <script>
         function myFunction() {
             if (document.getElementById("SltProceso").value.length > 0) {
-                validaFechasODT();
+                validaFechasLotes();
             }
         }
     </script>
