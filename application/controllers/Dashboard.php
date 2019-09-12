@@ -42,8 +42,6 @@ class Dashboard extends CI_Controller {
 	public function index()
 	{
 		//$this->load->view('welcome_message');
-
-
 		$user = $this->session->userdata('userlogin');
 		if (isset($this->session->userlogin)) {
 			$data['stock'] = $this->Stock_model->getStocks();
@@ -60,6 +58,14 @@ class Dashboard extends CI_Controller {
 	
 	}
 
+	private function validateLogin()
+	{
+		$user = $this->session->userdata('userlogin');
+		if (!isset($this->session->userlogin)) {
+			header('Location: ' .  strtolower(base_url()) . 'ingreso');
+		}
+	}
+	
 
 	public function closesession()
 	{
@@ -70,6 +76,8 @@ class Dashboard extends CI_Controller {
 
 	public function reporteventas()
 	{
+		$this->validateLogin();
+
 		if ($this->input->post()) 
 		{
 			$data['ventas'] = $this->Ventas_model->filtrarVentas($_POST);
@@ -105,6 +113,7 @@ class Dashboard extends CI_Controller {
 
 	public function reportecompras()
 	{
+		$this->validateLogin();
 		if ($this->input->post()) 
 		{			
 			$data['compras'] = $this->Compras_model->filtrarCompras($_POST);
@@ -145,6 +154,7 @@ class Dashboard extends CI_Controller {
 
 	public function reportelotes()
 	{
+		$this->validateLogin();
 		if ($this->input->post()) {
 
 			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
@@ -181,6 +191,7 @@ class Dashboard extends CI_Controller {
 
 	public function reporteodt()
 	{
+		$this->validateLogin();
 		if ($this->input->post()) {
 			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
 			$data['odt'] = $this->Odt_model->filtrarODT($_POST);
@@ -220,7 +231,7 @@ class Dashboard extends CI_Controller {
 
 	public function detalleventa($idVenta=null)
 	{
-
+		$this->validateLogin();
 		try {
 			if (!isset($idVenta) || $idVenta <= 0) {
 				header('Location: ' .  strtolower(base_url()) . 'dashboard/reporteventas');
@@ -240,7 +251,7 @@ class Dashboard extends CI_Controller {
 
 	public function detallecompra($idcompra=null)
 	{
-
+		$this->validateLogin();
 		try {
 			if (!isset($idcompra) || $idcompra <= 0) {
 				header('Location: ' .  strtolower(base_url()) . 'dashboard/reporteventas');
@@ -260,6 +271,7 @@ class Dashboard extends CI_Controller {
 
 	public function reportecomprasporproductos()
 	{
+		$this->validateLogin();
 		if ($this->input->post()) {
 			$data['compras'] = $this->Compras_model->comprasPorProductos($_POST);
 			$data['materiales'] = $this->Material_model->getAllMateriales();
@@ -276,6 +288,7 @@ class Dashboard extends CI_Controller {
 
 	public function reporteventasporproductos()
 	{
+		$this->validateLogin();
 		if ($this->input->post()) {
 			$data['ventas'] = $this->Ventas_model->ventasPorProducto($_POST);
 			$data['materiales'] = $this->Material_model->getAllMateriales();
