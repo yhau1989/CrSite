@@ -42,11 +42,22 @@ class Dashboard extends CI_Controller {
 	public function index()
 	{
 		//$this->load->view('welcome_message');
-		$data['stock'] = $this->Stock_model->getStocks();
-		$data['compras'] = $this->Compras_model->getAllCompras(1);
-		$data['ventas'] = $this->Ventas_model->getAllVentas(1);
-		$data['odt'] = $this->Odt_model->getAllODT(1);
-		$this->load->view('dash', $data);
+
+
+		$user = $this->session->userdata('userlogin');
+		if (isset($this->session->userlogin)) {
+			$data['stock'] = $this->Stock_model->getStocks();
+			$data['compras'] = $this->Compras_model->getAllCompras(1);
+			$data['ventas'] = $this->Ventas_model->getAllVentas(1);
+			$data['odt'] = $this->Odt_model->getAllODT(1);
+			$this->load->view('dash', $data);
+		} else {
+			header('Location: ' .  strtolower(base_url()) . 'ingreso');
+		}
+
+
+
+	
 	}
 
 
