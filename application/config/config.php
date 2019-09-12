@@ -224,7 +224,7 @@ $config['allow_get_array'] = TRUE;
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 3;
+$config['log_threshold'] = 0;
 
 /*
 |--------------------------------------------------------------------------
@@ -249,7 +249,7 @@ $config['log_path'] = '';
 | Note: Leaving it blank will default to 'php'.
 |
 */
-$config['log_file_extension'] = 'txt';
+$config['log_file_extension'] = '';
 
 /*
 |--------------------------------------------------------------------------
