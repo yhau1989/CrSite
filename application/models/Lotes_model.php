@@ -128,30 +128,42 @@ class Lotes_model extends CI_Model {
             }
             
 
-            if (strlen($datos['fdesde']) > 0 && strlen($datos['proceso']) == 0) {
-
-                $this->db->where('lotes.fecha_ini_selecciona', $datos['fdesde'] . ' 00:00');
-                $this->db->or_where('lotes.fecha_ini_procesa', $datos['fdesde'] . ' 00:00');
-                $this->db->or_where('lotes.fecha_ini_almacena', $datos['fdesde'] . ' 00:00');
-
-            } else if (strlen($datos['fdesde']) > 0 && strlen($datos['proceso']) > 0) {
+            if (strlen($datos['fdesde']) > 0 && strlen($datos['proceso']) > 0 && strlen($datos['status_proceso']) > 0) {
                 switch ($datos['proceso']) {
                     case 1:
-                        $this->db->where('lotes.proceso_selecciona', 1);
+                        $this->db->where('lotes.proceso_selecciona', $datos['status_proceso']);
                         $this->db->where('lotes.fecha_ini_selecciona', $datos['fdesde'] . ' 00:00');
                         break;
 
                     case 2:
-                        $this->db->where('lotes.proceso_procesar', 1);
+                        $this->db->where('lotes.proceso_procesar', $datos['status_proceso']);
                         $this->db->where('lotes.fecha_ini_procesa', $datos['fdesde'] . ' 00:00');
                         break;
 
                     case 3:
-                        $this->db->where('lotes.proceso_almacenar', 1);
+                        $this->db->where('lotes.proceso_almacenar', $datos['status_proceso']);
                         $this->db->where('lotes.fecha_ini_almacena', $datos['fdesde'] . ' 00:00');
                         break;
                 }
-            } else if (strlen($datos['usuarioProceso']) == 0 && strlen($datos['proceso']) > 0) {
+            }else if (strlen($datos['fdesde']) > 0 && strlen($datos['proceso']) > 0 && strlen($datos['status_proceso']) <= 0) {
+                switch ($datos['proceso']) {
+                    case 1:
+                        $this->db->where_in('lotes.proceso_selecciona', array('1','0'));
+                        $this->db->where('lotes.fecha_ini_selecciona', $datos['fdesde'] . ' 00:00');
+                        break;
+
+                    case 2:
+                        $this->db->where_in('lotes.proceso_procesar', array('1', '0'));
+                        $this->db->where('lotes.fecha_ini_procesa', $datos['fdesde'] . ' 00:00');
+                        break;
+
+                    case 3:
+                        $this->db->where_in('lotes.proceso_almacenar', array('1', '0'));
+                        $this->db->where('lotes.fecha_ini_almacena', $datos['fdesde'] . ' 00:00');
+                        break;
+                }
+            }
+            else if (strlen($datos['usuarioProceso']) == 0 && strlen($datos['proceso']) > 0) {
                 switch ($datos['proceso']) {
                     case 1:
                         $this->db->where('lotes.proceso_selecciona', 1);
@@ -167,24 +179,38 @@ class Lotes_model extends CI_Model {
                 }
             }
 
-            if (strlen($datos['fhasta']) > 0 && strlen($datos['proceso']) == 0) {
-                $this->db->where('lotes.fecha_fin_selecciona', $datos['fhasta'] . ' 23:59');
-                $this->db->or_where('lotes.fecha_fin_procesa', $datos['fhasta'] . ' 23:59');
-                $this->db->or_where('lotes.fecha_fin_almacena', $datos['fhasta'] . ' 23:59');
-            } else if (strlen($datos['fhasta']) > 0 && strlen($datos['proceso']) > 0) {
+           
+            if (strlen($datos['fhasta']) > 0 && strlen($datos['proceso']) > 0 && strlen($datos['status_proceso']) > 0) {
                 switch ($datos['proceso']) {
                     case 1:
-                        $this->db->where('lotes.proceso_selecciona', 1);
+                        $this->db->where('lotes.proceso_selecciona', datos['status_proceso']);
                         $this->db->where('lotes.fecha_fin_selecciona', $datos['fhasta'] . ' 23:59');
                         break;
 
                     case 2:
-                        $this->db->where('lotes.proceso_procesar', 1);
+                        $this->db->where('lotes.proceso_procesar', datos['status_proceso']);
                         $this->db->where('lotes.fecha_fin_procesa', $datos['fhasta'] . ' 23:59');
                         break;
 
                     case 3:
-                        $this->db->where('lotes.proceso_almacenar', 1);
+                        $this->db->where('lotes.proceso_almacenar', datos['status_proceso']);
+                        $this->db->where('lotes.fecha_fin_almacena', $datos['fhasta'] . ' 23:59');
+                        break;
+                }
+            } else if (strlen($datos['fhasta']) > 0 && strlen($datos['proceso']) > 0 && strlen($datos['status_proceso']) <= 0) {
+                switch ($datos['proceso']) {
+                    case 1:
+                        $this->db->where_in('lotes.proceso_selecciona', array('1', '0'));
+                        $this->db->where('lotes.fecha_fin_selecciona', $datos['fhasta'] . ' 23:59');
+                        break;
+
+                    case 2:
+                        $this->db->where_in('lotes.proceso_procesar', array('1', '0'));
+                        $this->db->where('lotes.fecha_fin_procesa', $datos['fhasta'] . ' 23:59');
+                        break;
+
+                    case 3:
+                        $this->db->where_in('lotes.proceso_almacenar', array('1', '0'));
                         $this->db->where('lotes.fecha_fin_almacena', $datos['fhasta'] . ' 23:59');
                         break;
                 }
