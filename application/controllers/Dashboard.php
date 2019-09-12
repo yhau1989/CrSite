@@ -42,7 +42,6 @@ class Dashboard extends CI_Controller {
 	public function index()
 	{
 		//$this->load->view('welcome_message');
-		$user = $this->session->userdata('userlogin');
 		if (isset($this->session->userlogin)) {
 			$data['stock'] = $this->Stock_model->getStocks();
 			$data['compras'] = $this->Compras_model->getAllCompras(1);
@@ -52,19 +51,9 @@ class Dashboard extends CI_Controller {
 		} else {
 			header('Location: ' .  strtolower(base_url()) . 'ingreso');
 		}
-
-
+	}
 
 	
-	}
-
-	private function validateLogin()
-	{
-		$user = $this->session->userdata('userlogin');
-		if (!isset($this->session->userlogin)) {
-			header('Location: ' .  strtolower(base_url()) . 'ingreso');
-		}
-	}
 	
 
 	public function closesession()
@@ -76,25 +65,31 @@ class Dashboard extends CI_Controller {
 
 	public function reporteventas()
 	{
-		$this->validateLogin();
+		if (isset($this->session->userlogin)) {
 
-		if ($this->input->post()) 
-		{
-			$data['ventas'] = $this->Ventas_model->filtrarVentas($_POST);
-			$data['sumatorias'] = $this->sumReportVentas($data['ventas']);
-			$data['clientes'] = $this->Cliente_model->getAllClientes();
-			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
-			$this->load->view('dashventas', $data);
+			if ($this->input->post()) 
+			{
+				$data['ventas'] = $this->Ventas_model->filtrarVentas($_POST);
+				$data['sumatorias'] = $this->sumReportVentas($data['ventas']);
+				$data['clientes'] = $this->Cliente_model->getAllClientes();
+				$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+				$this->load->view('dashventas', $data);
+			}
+			else
+			{
+				$data['ventas'] = $this->Ventas_model->getAllVentas();
+				$data['sumatorias'] = $this->sumReportVentas($data['ventas']);
+				$data['clientes'] = $this->Cliente_model->getAllClientes();
+				$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+				
+				$this->load->view('dashventas', $data);
+			}
+		
+		} else {
+			header('Location: ' .  strtolower(base_url()) . 'ingreso');
 		}
-		else
-		{
-			$data['ventas'] = $this->Ventas_model->getAllVentas();
-			$data['sumatorias'] = $this->sumReportVentas($data['ventas']);
-			$data['clientes'] = $this->Cliente_model->getAllClientes();
-			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
-			
-			$this->load->view('dashventas', $data);
-		}
+
+		
 	}
 
 	private function sumReportVentas($ventas)
@@ -113,23 +108,28 @@ class Dashboard extends CI_Controller {
 
 	public function reportecompras()
 	{
-		$this->validateLogin();
-		if ($this->input->post()) 
-		{			
-			$data['compras'] = $this->Compras_model->filtrarCompras($_POST);
-			$data['sumatorias'] = $this->sumReportCompras($data['compras']);
-			$data['proveedores'] = $this->Proveedor_model->getAllProveedores();
-			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
-			$this->load->view('dashcompras', $data);
-			
-		}
-		else
-		{
-			$data['compras'] = $this->Compras_model->getAllCompras();
-			$data['sumatorias'] = $this->sumReportCompras($data['compras']);
-			$data['proveedores'] = $this->Proveedor_model->getAllProveedores();
-			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
-			$this->load->view('dashcompras', $data);
+		if (isset($this->session->userlogin)) {
+
+			if ($this->input->post()) 
+			{			
+				$data['compras'] = $this->Compras_model->filtrarCompras($_POST);
+				$data['sumatorias'] = $this->sumReportCompras($data['compras']);
+				$data['proveedores'] = $this->Proveedor_model->getAllProveedores();
+				$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+				$this->load->view('dashcompras', $data);
+				
+			}
+			else
+			{
+				$data['compras'] = $this->Compras_model->getAllCompras();
+				$data['sumatorias'] = $this->sumReportCompras($data['compras']);
+				$data['proveedores'] = $this->Proveedor_model->getAllProveedores();
+				$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+				$this->load->view('dashcompras', $data);
+			}
+		
+		} else {
+			header('Location: ' .  strtolower(base_url()) . 'ingreso');
 		}
 	}
 
@@ -154,24 +154,29 @@ class Dashboard extends CI_Controller {
 
 	public function reportelotes()
 	{
-		$this->validateLogin();
-		if ($this->input->post()) {
+		if (isset($this->session->userlogin)) {
 
-			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
-			$data['lotes'] = $this->Lotes_model->filtrarLotes($_POST);
-			$data['sumatorias'] = $this->sumReportLotes($data['lotes']);
-			$data['materiales'] = $this->Material_model->getAllMateriales();
-
-			$this->load->view('dashlotes', $data);
-			
-		} else{
-
-			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
-			$data['lotes'] = $this->Lotes_model->getAllLotes();
-			$data['sumatorias'] = $this->sumReportLotes($data['lotes']);
-			$data['materiales'] = $this->Material_model->getAllMateriales();
-			$this->load->view('dashlotes', $data);
-		}	
+			if ($this->input->post()) {
+	
+				$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+				$data['lotes'] = $this->Lotes_model->filtrarLotes($_POST);
+				$data['sumatorias'] = $this->sumReportLotes($data['lotes']);
+				$data['materiales'] = $this->Material_model->getAllMateriales();
+	
+				$this->load->view('dashlotes', $data);
+				
+			} else{
+	
+				$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+				$data['lotes'] = $this->Lotes_model->getAllLotes();
+				$data['sumatorias'] = $this->sumReportLotes($data['lotes']);
+				$data['materiales'] = $this->Material_model->getAllMateriales();
+				$this->load->view('dashlotes', $data);
+			}	
+		
+		} else {
+			header('Location: ' .  strtolower(base_url()) . 'ingreso');
+		}
 	}
 
 	private function sumReportLotes($lotes)
@@ -191,22 +196,27 @@ class Dashboard extends CI_Controller {
 
 	public function reporteodt()
 	{
-		$this->validateLogin();
-		if ($this->input->post()) {
-			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
-			$data['odt'] = $this->Odt_model->filtrarODT($_POST);
-			$data['sumatorias'] = $this->sumReportOdt($data['odt']);
-			$data['materiales'] = $this->Material_model->getAllMateriales();
-			$this->load->view('dashodt', $data);
-			
-		} else{
+		if (isset($this->session->userlogin)) {
 
-			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
-			$data['odt'] = $this->Odt_model->getAllODT();
-			$data['sumatorias'] = $this->sumReportOdt($data['odt']);
-			$data['materiales'] = $this->Material_model->getAllMateriales();
-			
-			$this->load->view('dashodt', $data);
+			if ($this->input->post()) {
+				$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+				$data['odt'] = $this->Odt_model->filtrarODT($_POST);
+				$data['sumatorias'] = $this->sumReportOdt($data['odt']);
+				$data['materiales'] = $this->Material_model->getAllMateriales();
+				$this->load->view('dashodt', $data);
+				
+			} else{
+	
+				$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+				$data['odt'] = $this->Odt_model->getAllODT();
+				$data['sumatorias'] = $this->sumReportOdt($data['odt']);
+				$data['materiales'] = $this->Material_model->getAllMateriales();
+				
+				$this->load->view('dashodt', $data);
+			}
+		
+		} else {
+			header('Location: ' .  strtolower(base_url()) . 'ingreso');
 		}
 		
 	}
@@ -231,72 +241,92 @@ class Dashboard extends CI_Controller {
 
 	public function detalleventa($idVenta=null)
 	{
-		$this->validateLogin();
-		try {
-			if (!isset($idVenta) || $idVenta <= 0) {
+		if (isset($this->session->userlogin)) {
+
+			try {
+				if (!isset($idVenta) || $idVenta <= 0) {
+					header('Location: ' .  strtolower(base_url()) . 'dashboard/reporteventas');
+				}
+			} catch (Exception $th) {
 				header('Location: ' .  strtolower(base_url()) . 'dashboard/reporteventas');
 			}
-		} catch (Exception $th) {
-			header('Location: ' .  strtolower(base_url()) . 'dashboard/reporteventas');
+	
+			$data['id_venta'] = $idVenta;
+			$data['venta'] = $this->Ventas_model->getVenta($idVenta);
+			$data['clientes'] = $this->Cliente_model->getAllClientes();
+			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+			$this->load->view('dashventadetalle', $data);
+		
+		} else {
+			header('Location: ' .  strtolower(base_url()) . 'ingreso');
 		}
-
-		$data['id_venta'] = $idVenta;
-		$data['venta'] = $this->Ventas_model->getVenta($idVenta);
-		$data['clientes'] = $this->Cliente_model->getAllClientes();
-		$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
-		$this->load->view('dashventadetalle', $data);
 	}
 
 	
 
 	public function detallecompra($idcompra=null)
 	{
-		$this->validateLogin();
-		try {
-			if (!isset($idcompra) || $idcompra <= 0) {
+		if (isset($this->session->userlogin)) {
+			try {
+				if (!isset($idcompra) || $idcompra <= 0) {
+					header('Location: ' .  strtolower(base_url()) . 'dashboard/reporteventas');
+				}
+			} catch (Exception $th) {
 				header('Location: ' .  strtolower(base_url()) . 'dashboard/reporteventas');
 			}
-		} catch (Exception $th) {
-			header('Location: ' .  strtolower(base_url()) . 'dashboard/reporteventas');
-		}
+	
+			$data['id_compra'] = $idcompra;
+			$data['compras'] = $this->Compras_model->getCompra($idcompra);
+			$data['clientes'] = $this->Cliente_model->getAllClientes();
+			$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
+			//var_dump($data['compras']['data']['cabecera']);
+			$this->load->view('dashcompradetalle', $data);
 
-		$data['id_compra'] = $idcompra;
-		$data['compras'] = $this->Compras_model->getCompra($idcompra);
-		$data['clientes'] = $this->Cliente_model->getAllClientes();
-		$data['usuarios'] = $this->Usuarios_model->getAllUsuariosList();
-		//var_dump($data['compras']['data']['cabecera']);
-		$this->load->view('dashcompradetalle', $data);
+		
+		} else {
+			header('Location: ' .  strtolower(base_url()) . 'ingreso');
+		}
 	}
 
 
 	public function reportecomprasporproductos()
 	{
-		$this->validateLogin();
-		if ($this->input->post()) {
-			$data['compras'] = $this->Compras_model->comprasPorProductos($_POST);
-			$data['materiales'] = $this->Material_model->getAllMateriales();
-			$this->load->view('dashcomprasproductos', $data);
-			
+		if (isset($this->session->userlogin)) {
+
+			if ($this->input->post()) {
+				$data['compras'] = $this->Compras_model->comprasPorProductos($_POST);
+				$data['materiales'] = $this->Material_model->getAllMateriales();
+				$this->load->view('dashcomprasproductos', $data);
+				
+			} else {
+				$data['compras'] = $this->Compras_model->comprasPorProductos();
+				$data['materiales'] = $this->Material_model->getAllMateriales();
+				$this->load->view('dashcomprasproductos', $data);
+			}
+		
 		} else {
-			$data['compras'] = $this->Compras_model->comprasPorProductos();
-			$data['materiales'] = $this->Material_model->getAllMateriales();
-			$this->load->view('dashcomprasproductos', $data);
+			header('Location: ' .  strtolower(base_url()) . 'ingreso');
 		}
-		
-		
+
 	}
 
 	public function reporteventasporproductos()
 	{
-		$this->validateLogin();
-		if ($this->input->post()) {
-			$data['ventas'] = $this->Ventas_model->ventasPorProducto($_POST);
-			$data['materiales'] = $this->Material_model->getAllMateriales();
-			$this->load->view('dashventasproductos', $data);
+		if (isset($this->session->userlogin)) 
+		{
+
+			if ($this->input->post()) {
+				$data['ventas'] = $this->Ventas_model->ventasPorProducto($_POST);
+				$data['materiales'] = $this->Material_model->getAllMateriales();
+				$this->load->view('dashventasproductos', $data);
+			} else {
+				$data['ventas'] = $this->Ventas_model->ventasPorProducto();
+				$data['materiales'] = $this->Material_model->getAllMateriales();
+				$this->load->view('dashventasproductos', $data);
+			}
+		
 		} else {
-			$data['ventas'] = $this->Ventas_model->ventasPorProducto();
-			$data['materiales'] = $this->Material_model->getAllMateriales();
-			$this->load->view('dashventasproductos', $data);
+			header('Location: ' .  strtolower(base_url()) . 'ingreso');
 		}
 	}
 
