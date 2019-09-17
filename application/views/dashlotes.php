@@ -20,7 +20,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <div class="ui main container dash">
         <div class="separ"></div>
-        <h1 class="ui header">Reporte bodega pendiente de procesar</h1>
+        <h1 class="ui header">Reporte bodega de producto no procesado</h1>
 
 
         <form class="ui form" id="reporteVentasForm" method="post" accept-charset="utf-8">
