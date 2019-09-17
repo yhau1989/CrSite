@@ -232,7 +232,7 @@ class Dashboard extends CI_Controller {
 				$sumFaltante = $sumFaltante + $valor['faltante'];
 				$sumAlmacenado = $sumAlmacenado + ($valor['peso_total'] - $valor['faltante']);
 			}
-			return array('sumPeso' => $sumPeso, 'sumFaltante' => $sumFaltante, 'sumAlmacenado' => $sumAlmacenado);
+			return array('sumPeso' => number_format((float)$sumPeso, 2, '.', ''), 'sumFaltante' => number_format((float)$sumFaltante, 2, '.', '') , 'sumAlmacenado' => number_format((float)$sumAlmacenado, 2, '.', ''));
 		} else {
 			return array('sumPeso' => '0.00', 'sumFaltante' => '0.00');
 		}
