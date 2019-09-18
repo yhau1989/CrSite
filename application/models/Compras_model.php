@@ -208,7 +208,7 @@ class Compras_model extends CI_Model {
 
     public function getDetalleCompraSubtotales($idCompra)
     {
-        $this->db->select("SUM(valor) as SubTotal, (SUM(valor) * 0.12) as IVA");
+        $this->db->select("SUM(valor) as SubTotal, (SUM(valor) * 0) as IVA");
         $this->db->from('compradetalle');
         $this->db->where('id_compra', $idCompra);
         $data = $this->db->get(); 
