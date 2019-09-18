@@ -144,12 +144,12 @@ class Odt_model extends CI_Model {
                         break;
 
                     case 2:
-                        $this->db->where('ordentrabajo.proceso_trituracion',  array('1', '0'));
+                        $this->db->where_in('ordentrabajo.proceso_trituracion',  array('1', '0'));
                         $this->db->where('ordentrabajo.fecha_ini_tritura >=', $datos['fdesde'] . ' 00:00');
                         break;
 
                     case 3:
-                        $this->db->where('ordentrabajo.proceso_almacena',  array('1', '0'));
+                        $this->db->where_in('ordentrabajo.proceso_almacena',  array('1', '0'));
                         $this->db->where('ordentrabajo.fecha_ini_almacena >=', $datos['fdesde'] . ' 00:00');
                         break;
                 }
@@ -189,12 +189,12 @@ class Odt_model extends CI_Model {
                         break;
 
                     case 2:
-                        $this->db->where('ordentrabajo.proceso_trituracion', array('1', '0'));
+                        $this->db->where_in('ordentrabajo.proceso_trituracion', array('1', '0'));
                         $this->db->where('ordentrabajo.fecha_fin_tritura <=', $datos['fhasta'] . ' 23:59');
                         break;
 
                     case 3:
-                        $this->db->where('ordentrabajo.proceso_almacena', array('1', '0'));
+                        $this->db->where_in('ordentrabajo.proceso_almacena', array('1', '0'));
                         $this->db->where('ordentrabajo.fecha_fin_almacena <=', $datos['fhasta'] . ' 23:59');
                         break;
                 }
@@ -220,8 +220,9 @@ class Odt_model extends CI_Model {
             }
 
 
-
+            
             $data = $this->db->get();
+            //log_message('info', $this->db->last_query());
 
             if ($this->db->error()['code'] == 0 && $data->result_id->num_rows > 0) {
                 return array('status' => 0, 'data' =>  $data->result_array());
