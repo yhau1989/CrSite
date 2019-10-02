@@ -52,7 +52,7 @@ class Html
                                     </div>
                                 </div>
                                 <a class="item" href="' . $baseurl . 'dashboard/reporteodt">Ordernes de Trabajo</a>
-                                <a class="item" href="' . $baseurl . 'dashboard/reportelotes">Bodega de producto no procesado</a>
+                                <a class="item" href="' . $baseurl . 'dashboard/reportelotes">Bodega de producto por lote</a>
                             </div>
                         </div>
                         <a href="' . $baseurl . '/dashboard/closesession" class="right item">Salir &nbsp; <i class="long arrow alternate right icon"></i></a>

@@ -26,7 +26,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                     <div class="title">
                         <h3 class="ui dividing header">
-                            <i class="dropdown icon"></i> Stocks bodega terminada
+                            <i class="dropdown icon"></i> Inventario de Productos Procesados
                         </h3>
                     </div>
 
