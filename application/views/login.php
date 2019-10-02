@@ -26,7 +26,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </div>
                 <div class="field">
                     <label>Email</label>
-                    <input id="email" type="email" maxlength="20"  name="email" autocomplete="off" placeholder="email" required>
+                    <input id="email" type="email" maxlength="80"  name="email" autocomplete="off" placeholder="email" required>
                 </div>
                 <div class="field">
                     <label>Contraseña</label>
